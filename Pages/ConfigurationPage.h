@@ -1,6 +1,6 @@
 // The author disclaims copyright to this source code.
-#ifndef CONFIGURATIONPAGE_H_
-#define CONFIGURATIONPAGE_H_
+#ifndef CONFIGURATIONPAGE_H
+#define CONFIGURATIONPAGE_H
 
 #include <Arduino.h>
 #include <LCD.h>

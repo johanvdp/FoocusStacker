@@ -1,6 +1,6 @@
 // The author disclaims copyright to this source code.
-#ifndef STOPPEDPAGE_H_
-#define STOPPEDPAGE_H_
+#ifndef STOPPEDPAGE_H
+#define STOPPEDPAGE_H
 
 #include <Arduino.h>
 #include <LCD.h>

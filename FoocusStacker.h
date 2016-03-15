@@ -10,6 +10,7 @@
 #include "Domain.h"
 #include "Buttons.h"
 #include "Actuator.h"
+#include "Camera.h"
 #include "Pages/Page.h"
 #include "Statistics.h"
 #include "States/StateMachine.h"
@@ -56,14 +57,14 @@
 // FoocusStacker pin mapping
 // =========================
 // D1mini arduino pin number
-// D0          16 ACTUATOR LIMIT UP
+// D0          16 ACTUATOR LIMIT DOWN
 // D1           5 ACTUATOR DIRECTION
 // D2           4 ACTUATOR PULSE
 // D3           0 SDA
 // D4           2 SCL
-// D5          14 ACTUATOR LIMIT DOWN
-// D6          12
-// D7          13
+// D5          14 ACTUATOR LIMIT UP
+// D6          12 CAMERA FOCUS
+// D7          13 CAMERA SHUTTER
 // D8          15
 
 class FoocusStacker {
@@ -91,6 +92,7 @@ private:
 	Information* information;
 	Buttons* buttons;
 	Actuator* actuator;
+	Camera* camera;
 	Configuration* configuration;
 	Recording* recording;
 	StateMachine* stateMachine;

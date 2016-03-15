@@ -1,6 +1,6 @@
 // The author disclaims copyright to this source code.
-#ifndef PLAYBACKPAGE_H_
-#define PLAYBACKPAGE_H_
+#ifndef PLAYBACKPAGE_H
+#define PLAYBACKPAGE_H
 
 #include <Arduino.h>
 #include <LCD.h>

@@ -1,6 +1,6 @@
 // The author disclaims copyright to this source code.
 #include "StateHoming.h"
-
+#include <limits>
 StateHoming::StateHoming(Clock* clk, StateMachine* s, Buttons* b, Page* p,
 		Actuator* a) :
 		State(clk, s, b, p) {
@@ -24,8 +24,8 @@ void StateHoming::process() {
 	} else if (actuator->isLimitDown()) {
 		// failed to step reverse, down limit reached
 		stateMachine->stateGotoStopped();
-	} else {
-		actuator->requestDown();
+	} else if (actuator->getState() == Actuator::State::STOPPED){
+		actuator->setTargetPosition(std::numeric_limits<long>::min());
 	}
 	actuator->process();
 }

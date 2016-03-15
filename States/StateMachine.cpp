@@ -1,7 +1,7 @@
 // The author disclaims copyright to this source code.
 #include "StateMachine.h"
 
-StateMachine::StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a,
+StateMachine::StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Camera* cam,
 		Configuration* c, Recording* r, Information* i) {
 
 	StoppedPage* stoppedPage = new StoppedPage(l);
@@ -14,9 +14,9 @@ StateMachine::StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a,
 
 	stopped = new StateStopped(clk, this, b, stoppedPage);
 	homing = new StateHoming(clk, this, b, homingPage, a);
-	manual = new StateManual(clk, this, b, manualPage, a);
+	manual = new StateManual(clk, this, b, manualPage, a, cam);
 	record = new StateRecord(clk, this, b, recordPage, c, r);
-	playback = new StatePlayback(clk, this, b, playbackPage, a, c, r);
+	playback = new StatePlayback(clk, this, b, playbackPage, a, cam, c, r);
 	configuration = new StateConfiguration(clk, this, b, configurationPage, c);
 	info = new StateInfo(clk, this, b, informationPage, i);
 

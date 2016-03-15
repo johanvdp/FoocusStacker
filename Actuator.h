@@ -6,9 +6,16 @@
 #include "Component.h"
 #include "Debug.h"
 
+
 class Actuator: public FullProcess {
 
+
 public:
+	enum State {
+		STOPPED,
+		MOVING_UP,
+		MOVING_DOWN
+	};
 
 	Actuator(Configuration* configuration);
 	virtual ~Actuator();
@@ -18,11 +25,12 @@ public:
 	void process();
 	void write();
 
-	void requestUp();
-	void requestDown();
 	boolean isLimitUp();
 	boolean isLimitDown();
-	int getPosition();
+	Actuator::State getState();
+
+	long getPosition();
+	void setTargetPosition(long position);
 
 private:
 
@@ -34,11 +42,10 @@ private:
 
 	boolean limitUp;
 	boolean limitDown;
+	Actuator::State state;
+	Actuator::State previousState;
 	long position = 0;
-	boolean upPending;
-	boolean downPending;
-	boolean goingUp;
-	boolean goingDown;
+	long targetPosition = 0;
 };
 
 #endif

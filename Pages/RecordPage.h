@@ -1,6 +1,6 @@
 // The author disclaims copyright to this source code.
-#ifndef RECORDPAGE_H_
-#define RECORDPAGE_H_
+#ifndef RECORDPAGE_H
+#define RECORDPAGE_H
 
 #include <Arduino.h>
 #include <LCD.h>

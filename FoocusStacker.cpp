@@ -17,7 +17,8 @@ FoocusStacker::FoocusStacker() {
 	actuator = new Actuator(configuration);
 	debug = Debug::createInstance(configuration);
 	recording = new Recording(configuration);
-	stateMachine = new StateMachine(clock, buttons, lcd, actuator,
+	camera = new Camera(clock, configuration);
+	stateMachine = new StateMachine(clock, buttons, lcd, actuator, camera,
 			configuration, recording, information);
 }
 

@@ -1,9 +1,12 @@
 // The author disclaims copyright to this source code.
+
 #include "Actuator.h"
 
+#include "Domain.h"
+
 // limit switch I/O
-#define LIMIT_UP D6
-#define LIMIT_DOWN D5
+#define LIMIT_UP D5
+#define LIMIT_DOWN D0
 
 // stepper motor driver I/O
 #define DIRECTION D1
@@ -15,10 +18,9 @@ Actuator::Actuator(Configuration* c) :
 	limitUp = false;
 	limitDown = false;
 	position = 0;
-	upPending = false;
-	downPending = false;
-	goingUp = false;
-	goingDown = false;
+	targetPosition = 0;
+	state = Actuator::State::STOPPED;
+	previousState = Actuator::State::STOPPED;
 }
 
 Actuator::~Actuator() {
@@ -57,45 +59,48 @@ void Actuator::read() {
 		}
 		limitDown = newLimitDown;
 	}
-
-	upPending = false;
-	downPending = false;
 }
 
 void Actuator::process() {
-	if (limitDown) {
-		position = 0;
+	previousState = state;
+	if (state == Actuator::State::STOPPED) {
+		if (targetPosition > position && !limitUp) {
+			state = Actuator::State::MOVING_UP;
+		} else if (targetPosition < position && !limitDown) {
+			state = Actuator::State::MOVING_DOWN;
+		}
+	} else if (state == Actuator::State::MOVING_UP) {
+		if (limitUp || position >= targetPosition) {
+			state = Actuator::State::STOPPED;
+		}
+	} else if (state == Actuator::State::MOVING_DOWN) {
+		if (limitDown || position <= targetPosition) {
+			state = Actuator::State::STOPPED;
+		}
 	}
 }
 
 void Actuator::write() {
 
-	if (upPending && !limitUp && !downPending) {
-		if (!goingUp) {
-			Debug::getInstance()->info("Actuator::goingUp");
-			goingUp = true;
-			goingDown = false;
+	if (state == Actuator::State::MOVING_UP) {
+		if (previousState != state) {
+			Debug::getInstance()->info("Actuator::write MOVING_UP");
 		}
+		position++;
 		up();
 		pulse();
-	} else if (downPending && !limitDown && !upPending) {
-		if (!goingDown) {
-			Debug::getInstance()->info("Actuator::goingDown");
-			goingUp = false;
-			goingDown = true;
+	} else if (state == Actuator::State::MOVING_DOWN) {
+		if (previousState != state) {
+			Debug::getInstance()->info("Actuator::write MOVING_DOWN");
 		}
+		position--;
 		down();
 		pulse();
 	} else {
-		if (goingUp || goingDown) {
-			Debug::getInstance()->info("Actuator::stopped");
-			goingUp = false;
-			goingDown = false;
+		if (previousState != state) {
+			Debug::getInstance()->info("Actuator::write STOPPED");
 		}
 	}
-
-	upPending = false;
-	downPending = false;
 }
 
 void Actuator::up() {
@@ -115,20 +120,6 @@ void Actuator::pulse() {
 	digitalWrite(PULSE, HIGH);
 }
 
-void Actuator::requestUp() {
-	if (!limitUp) {
-		upPending = true;
-		position++;
-	}
-}
-
-void Actuator::requestDown() {
-	if (!limitDown) {
-		downPending = true;
-		position--;
-	}
-}
-
 boolean Actuator::isLimitDown() {
 	return limitDown;
 }
@@ -137,7 +128,16 @@ boolean Actuator::isLimitUp() {
 	return limitUp;
 }
 
-int Actuator::getPosition() {
+Actuator::State Actuator::getState() {
+	return state;
+}
+
+long Actuator::getPosition() {
 	return position;
+}
+
+void Actuator::setTargetPosition(long p) {
+	targetPosition = p;
+	Debug::getInstance()->info("Actuator::setTargetPosition " + String(targetPosition));
 }
 

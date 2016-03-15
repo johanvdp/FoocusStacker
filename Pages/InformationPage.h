@@ -1,6 +1,6 @@
 // The author disclaims copyright to this source code.
-#ifndef INFORMATIONPAGE_H_
-#define INFORMATIONPAGE_H_
+#ifndef INFORMATIONPAGE_H
+#define INFORMATIONPAGE_H
 
 #include <Arduino.h>
 #include <LCD.h>

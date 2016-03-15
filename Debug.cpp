@@ -28,12 +28,12 @@ void Debug::setup() {
 
 void Debug::info(String info) {
 	if (configuration->isDebugInfoEnabled()) {
-		Serial.print("INFO: " + info);
+		Serial.println("INFO: " + info);
 	}
 }
 
 void Debug::error(String error) {
 	if (configuration->isDebugErrorEnabled()) {
-		Serial.print("ERROR: " + error);
+		Serial.println("ERROR: " + error);
 	}
 }

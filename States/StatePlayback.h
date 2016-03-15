@@ -7,13 +7,14 @@ class StatePlayback;
 
 #include "StateMachine.h"
 #include "../Actuator.h"
+#include "../Camera.h"
 #include "../Domain.h"
 
 class StatePlayback: public State {
 
 public:
 
-	StatePlayback(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a,
+	StatePlayback(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a, Camera* cam,
 			Configuration* c, Recording* r);
 	virtual ~StatePlayback();
 
@@ -26,12 +27,11 @@ private:
 
 	static const int PLAYBACK_STOP = 3;
 
-	void targetForward();
-	void targetReverse();
 	void clicks();
-	void targetReached();
+	void nextIteration();
 
 	Actuator* actuator;
+	Camera* camera;
 	Configuration* configuration;
 	Recording* recording;
 
@@ -41,6 +41,5 @@ private:
 	long clickIntervalMs = 0;
 	long iterations = 0;
 	long initialPosition = 0;
-	long targetPosition = 0;
 };
 #endif

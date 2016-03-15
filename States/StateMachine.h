@@ -29,7 +29,7 @@ class StateMachine: public FullProcess {
 
 public:
 
-	StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Configuration* c,
+	StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Camera* cam, Configuration* c,
 			Recording* r, Information* i);
 	virtual ~StateMachine();
 

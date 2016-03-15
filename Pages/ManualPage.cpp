@@ -6,13 +6,17 @@
 // =========================================================
 //   012345678901234567890
 // 1 STOP  MANUAL    CLICK
-// 2
-// 3          ~000000
-// 4 DOWN               UP
+// 2 <<<               >>>
+// 3 <<       ~000000   >>
+// 4 <                   >
 //
 // stop : stop manual control
-// down : move down
-// up   : move up
+// <<<  : move down faster
+// <<   : move down fast
+// <    : move down
+// >    : move up
+// >>   : move up fast
+// >>>  : move up faster
 // click: camera click
 //
 // 000000: optional minus sign and actuator position
@@ -27,11 +31,9 @@ void ManualPage::display() {
 	lcd->setCursor(0, 0);
 	lcd->print("STOP  MANUAL   CLICK");
 	lcd->setCursor(0, 1);
-	lcd->print("                    ");
+	lcd->print("<<<              >>>");
 	lcd->setCursor(0, 2);
-	lcd->print(
-			"         " + toZeroFixedSigned(actuator->getPosition(), 7)
-					+ "     ");
+	lcd->print("<<       " + toZeroFixedSigned(actuator->getPosition(), 7)	+ "  >>");
 	lcd->setCursor(0, 3);
-	lcd->print("DOWN              UP");
+	lcd->print("<                  >");
 }
