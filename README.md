@@ -10,6 +10,7 @@ Components:
 *   NEMA-23 stepper motor
 *   LCD 2004 a 20 character 4 line LCD panel
 *   Buttons for menu navigation and control
+*   Camera focus and shutter remote release control
  
 Using an object oriented approach to divide the application into components.
 Reducing complexity by making all components similar in structure and usage.
@@ -20,6 +21,7 @@ Reducing complexity by making all components similar in structure and usage.
 *   Actuator
 *   Buttons
 *   Clock
+*   Camera
 *   Recording
 *   Configuration
 *   Information
