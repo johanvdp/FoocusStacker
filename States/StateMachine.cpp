@@ -27,7 +27,6 @@ StateMachine::~StateMachine() {
 }
 
 void StateMachine::setup() {
-	Debug::getInstance()->info("StateMachine::setup");
 	current = stopped;
 	current->setup();
 }
@@ -45,38 +44,31 @@ void StateMachine::write() {
 }
 
 void StateMachine::stateGotoStopped() {
-	Debug::getInstance()->info("StateMachine::stateGotoStopped");
 	gotoState(stopped);
 }
 
 void StateMachine::stateGotoHoming() {
-	Debug::getInstance()->info("StateMachine::stateGotoHoming");
 	gotoState(homing);
 }
 
 void StateMachine::stateGotoManual() {
-	Debug::getInstance()->info("StateMachine::stateGotoManual");
 	gotoState(manual);
 }
 
 void StateMachine::stateGotoRecord() {
-	Debug::getInstance()->info("StateMachine::stateGotoRecord");
 	gotoState(record);
 }
 
 void StateMachine::stateGotoPlayback() {
-	Debug::getInstance()->info("StateMachine::stateGotoPlayback");
 	current = playback;
 	gotoState(playback);
 }
 
 void StateMachine::stateGotoConfiguration() {
-	Debug::getInstance()->info("StateMachine::stateGotoConfiguration");
 	gotoState(configuration);
 }
 
 void StateMachine::stateGotoInfo() {
-	Debug::getInstance()->info("StateMachine::stateGotoInfo");
 	gotoState(info);
 }
 

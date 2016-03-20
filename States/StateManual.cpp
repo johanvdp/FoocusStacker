@@ -19,73 +19,53 @@ StateManual::StateManual(Clock* clk, StateMachine* s, Buttons* b, Page* p,
 StateManual::~StateManual() {
 }
 
-void StateManual::setup() {
-	actuator->setup();
-	camera->setup();
-
-	State::setup();
-}
-
-void StateManual::read() {
-	State::read();
-
-	actuator->read();
-}
-
 void StateManual::process() {
 	State::process();
 
-	int delta = 0;
 	if (buttons->isPressed(MANUAL_STOP)) {
 		stateMachine->stateGotoStopped();
-	} else if (actuator->getState() == Actuator::State::STOPPED) {
-		if (buttons->isActive(MANUAL_DOWN)) {
-			delta = -1;
-		} else if (buttons->isActive(MANUAL_DOWN_FAST)) {
-			delta = -10;
-		} else if (buttons->isActive(MANUAL_DOWN_FASTER)) {
-			delta = -100;
-		} else if (buttons->isActive(MANUAL_UP)) {
-			delta = 1;
-		} else if (buttons->isActive(MANUAL_UP_FAST)) {
-			delta = 10;
-		} else if (buttons->isActive(MANUAL_UP_FASTER)) {
-			delta = 100;
-		} else if (buttons->isPressed(MANUAL_CLICK)) {
-			camera->click();
+		return;
+	}
+
+	int delta = 0;
+	if (buttons->isPressed(MANUAL_DOWN) || buttons->getActiveDuration(MANUAL_DOWN) > 500) {
+		delta = -1;
+	} else if (buttons->isPressed(MANUAL_DOWN_FAST) || buttons->getActiveDuration(MANUAL_DOWN_FAST) > 500) {
+		delta = -10;
+	} else if (buttons->isPressed(MANUAL_DOWN_FASTER)|| buttons->getActiveDuration(MANUAL_DOWN_FASTER) > 500 ) {
+		delta = -100;
+	} else if (buttons->isPressed(MANUAL_UP) || buttons->getActiveDuration(MANUAL_UP) > 500) {
+		delta = 1;
+	} else if (buttons->isPressed(MANUAL_UP_FAST) || buttons->getActiveDuration(MANUAL_UP_FAST) > 500) {
+		delta = 10;
+	} else if (buttons->isPressed(MANUAL_UP_FASTER) || buttons->getActiveDuration(MANUAL_UP_FASTER) > 500) {
+		delta = 100;
+	} else if (buttons->isPressed(MANUAL_CLICK)) {
+		camera->click();
+		page->blink();
+	}
+
+	if (delta > 0) {
+		if (actuator->isLimitUp()) {
+			// can not step up, up limit reached
 			page->blink();
+		} else {
+			displayUpdateRequired = true;
+			actuator->gotoPosition(actuator->getPosition() + delta);
 		}
-		if (delta > 0) {
-			if (actuator->isLimitUp()) {
-				// can not step up, up limit reached
-				page->blink();
-			} else {
-				actuator->setTargetPosition(actuator->getPosition() + delta);
-				displayUpdateRequired = true;
-			}
-		} else if (delta < 0) {
-			if (actuator->isLimitDown()) {
-				// can not step down, down limit reached
-				page->blink();
-			} else {
-				actuator->setTargetPosition(actuator->getPosition() + delta);
-				displayUpdateRequired = true;
-			}
+	} else if (delta < 0) {
+		if (actuator->isLimitDown()) {
+			// can not step down, down limit reached
+			page->blink();
+		} else {
+			displayUpdateRequired = true;
+			actuator->gotoPosition(actuator->getPosition() + delta);
 		}
-
 	}
 
-	actuator->process();
-
-	if (displayUpdateRequired && actuator->getState() == Actuator::State::STOPPED) {
-		displayUpdateRequired = false;
+	// do not disturb running actuator with display updates
+	if (displayUpdateRequired && actuator->isStopped()) {
 		page->update();
+		displayUpdateRequired = false;
 	}
-}
-
-void StateManual::write() {
-	actuator->write();
-	camera->write();
-
-	State::write();
 }

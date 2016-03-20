@@ -8,6 +8,7 @@ StatePlayback::StatePlayback(Clock* clk, StateMachine* s, Buttons* b, Page* p,
 	camera = cam;
 	configuration = c;
 	recording = r;
+	playbackState = WAIT_FOR_CAMERA;
 }
 
 StatePlayback::~StatePlayback() {
@@ -17,40 +18,19 @@ void StatePlayback::setup() {
 
 	Debug::getInstance()->info("StatePlayback::setup");
 
-	// start playback at beginning of record
-	recording->resetStepIndex();
-
 	initialPosition = actuator->getPosition();
-	Debug::getInstance()->info(
-			"StatePlayback::setup initialPosition:" + String(initialPosition));
 
 	// read configuration once
-	stepCount = configuration->getStepCount();
 	stepIntervalMs = configuration->getStepIntervalMs();
-	clickCount = configuration->getClickCount();
-	clickIntervalMs = configuration->getClickIntervalMs();
 	iterations = configuration->getIterations();
-	Debug::getInstance()->info(
-			"StatePlayback::setup stepCount:" + String(stepCount));
-	Debug::getInstance()->info(
-			"StatePlayback::setup stepIntervalMs:" + String(stepIntervalMs));
-	Debug::getInstance()->info(
-			"StatePlayback::setup clickCount:" + String(clickCount));
-	Debug::getInstance()->info(
-			"StatePlayback::setup clickIntervalMs:" + String(clickIntervalMs));
-	Debug::getInstance()->info(
-			"StatePlayback::setup iterations:" + String(iterations));
 
-	actuator->setup();
-	camera->setup();
+	// start playback at beginning of record
+	recording->resetStepIndex();
+	firstStep = true;
+	click();
+	playbackState = WAIT_FOR_CAMERA;
 
 	State::setup();
-}
-
-void StatePlayback::read() {
-	State::read();
-
-	actuator->read();
 }
 
 void StatePlayback::process() {
@@ -58,48 +38,59 @@ void StatePlayback::process() {
 
 	if (buttons->isPressed(PLAYBACK_STOP)) {
 		stateMachine->stateGotoStopped();
-	} else if (actuator->getState() == Actuator::State::STOPPED) {
-		Debug::getInstance()->info(
-				"StatePlayback::process iteration:" + String(iterations));
-		if (iterations == configuration->getIterations()) {
-			Debug::getInstance()->info("StatePlayback::process first");
-			clicks();
-			actuator->setTargetPosition(actuator->getPosition() + recording->getCurrentStepPosition());
-			iterations--;
-		} else if (iterations > 0) {
-			Debug::getInstance()->info("StatePlayback::process next");
-			delay(stepIntervalMs);
-			clicks();
-			recording->nextStepIndex();
-			actuator->setTargetPosition(actuator->getPosition() + recording->getCurrentStepPosition());
-			iterations--;
-		} else if (iterations == 0) {
-			Debug::getInstance()->info("StatePlayback::process last");
-			clicks();
-			actuator->setTargetPosition(initialPosition);
-			iterations--;
+	} else if (playbackState == WAIT_FOR_CAMERA && camera->isReady()) {
+		if (firstStep) {
+			firstStep = false;
+			Debug::getInstance()->info("StatePlayback::process first step");
+			actuator->gotoPosition(
+					actuator->getPosition()
+							+ recording->getCurrentStepPosition());
+			playbackState = WAIT_FOR_ACTUATOR;
 		} else {
-			// finished
-			Debug::getInstance()->info("StatePlayback::process stopped");
+			boolean hasNext = recording->nextStepIndex();
+			if (hasNext) {
+				// goto next step
+				Debug::getInstance()->info("StatePlayback::process next step");
+				actuator->gotoPosition(
+						actuator->getPosition()
+								+ recording->getCurrentStepPosition());
+				playbackState = WAIT_FOR_ACTUATOR;
+			} else {
+				// end of steps
+				if (iterations > 1) {
+					// next iteration
+					Debug::getInstance()->info(
+							"StatePlayback::process next iteration");
+					iterations--;
+					// start playback at beginning of record
+					recording->resetStepIndex();
+					firstStep = true;
+					actuator->gotoPosition(
+							actuator->getPosition()
+									+ recording->getCurrentStepPosition());
+					playbackState = WAIT_FOR_ACTUATOR;
+				} else {
+					// return to initial position
+					Debug::getInstance()->info("StatePlayback::process return");
+					iterations--;
+					actuator->gotoPosition(initialPosition);
+					playbackState = WAIT_FOR_ACTUATOR;
+				}
+			}
+		}
+	} else if (playbackState == WAIT_FOR_ACTUATOR && actuator->isStopped()) {
+		if (iterations > 0) {
+			click();
+			playbackState = WAIT_FOR_CAMERA;
+		} else {
 			stateMachine->stateGotoStopped();
 		}
 	}
-
-	actuator->process();
 }
 
-void StatePlayback::write() {
-	actuator->write();
-	camera->write();
-
-	State::write();
-}
-
-void StatePlayback::clicks() {
-	Debug::getInstance()->info("StatePlayback::clicks");
-	for (int i = 0; i < clickCount; i++) {
-		delay(clickIntervalMs);
-		page->blink();
-	}
+void StatePlayback::click() {
+	delay(stepIntervalMs);
+	page->blink();
+	camera->click();
 }
 

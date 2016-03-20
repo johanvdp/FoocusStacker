@@ -18,13 +18,11 @@ State::~State() {
 }
 
 void State::setup() {
-	Debug::getInstance()->info("State::setup");
 	resetProcessStatistics();
 	page->update();
 }
 
 void State::read() {
-	buttons->read();
 }
 
 void State::process() {

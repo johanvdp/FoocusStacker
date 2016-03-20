@@ -23,8 +23,8 @@ private:
 	static const int RECORD_NEXT = 1;
 	static const int RECORD_PREV = 2;
 	static const int RECORD_STOP = 3;
-	static const int RECORD_UP = 4;
-	static const int RECORD_CLR = 7;
+	static const int RECORD_UP = 7;
+	static const int RECORD_CLR = 4;
 
 	void spinDown();
 	void spinUp();

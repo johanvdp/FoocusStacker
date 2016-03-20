@@ -15,9 +15,8 @@ public:
 	StateHoming(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a);
 	virtual ~StateHoming();
 
-	void read();
+	void setup();
 	void process();
-	void write();
 
 private:
 

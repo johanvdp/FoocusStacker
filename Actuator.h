@@ -25,12 +25,15 @@ public:
 	void process();
 	void write();
 
+	void gotoHome();
+	void stop();
+
 	boolean isLimitUp();
 	boolean isLimitDown();
-	Actuator::State getState();
+	boolean isStopped();
 
 	long getPosition();
-	void setTargetPosition(long position);
+	void gotoPosition(long position);
 
 private:
 
@@ -42,8 +45,10 @@ private:
 
 	boolean limitUp;
 	boolean limitDown;
-	Actuator::State state;
-	Actuator::State previousState;
+	boolean stopRequested;
+	boolean homeRequested;
+	State state;
+	State previousState;
 	long position = 0;
 	long targetPosition = 0;
 };

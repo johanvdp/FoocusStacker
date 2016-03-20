@@ -4,9 +4,11 @@
 
 #include "Domain.h"
 
+#include <limits>
+
 // limit switch I/O
-#define LIMIT_UP D5
-#define LIMIT_DOWN D0
+#define LIMIT_UP D0
+#define LIMIT_DOWN D5
 
 // stepper motor driver I/O
 #define DIRECTION D1
@@ -19,8 +21,10 @@ Actuator::Actuator(Configuration* c) :
 	limitDown = false;
 	position = 0;
 	targetPosition = 0;
-	state = Actuator::State::STOPPED;
-	previousState = Actuator::State::STOPPED;
+	state = STOPPED;
+	previousState = STOPPED;
+	stopRequested = false;
+	homeRequested = false;
 }
 
 Actuator::~Actuator() {
@@ -38,6 +42,11 @@ void Actuator::setup() {
 }
 
 void Actuator::read() {
+	if (state == STOPPED) {
+		// nothing to do
+		return;
+	}
+
 	// latch limit switch status
 	boolean newLimitUp = !digitalRead(LIMIT_UP);
 	boolean newLimitDown = !digitalRead(LIMIT_DOWN);
@@ -62,45 +71,69 @@ void Actuator::read() {
 }
 
 void Actuator::process() {
-	previousState = state;
-	if (state == Actuator::State::STOPPED) {
-		if (targetPosition > position && !limitUp) {
-			state = Actuator::State::MOVING_UP;
-		} else if (targetPosition < position && !limitDown) {
-			state = Actuator::State::MOVING_DOWN;
-		}
-	} else if (state == Actuator::State::MOVING_UP) {
-		if (limitUp || position >= targetPosition) {
-			state = Actuator::State::STOPPED;
-		}
-	} else if (state == Actuator::State::MOVING_DOWN) {
-		if (limitDown || position <= targetPosition) {
-			state = Actuator::State::STOPPED;
-		}
-	}
 }
 
 void Actuator::write() {
 
-	if (state == Actuator::State::MOVING_UP) {
+	// decide
+	previousState = state;
+	if (state == STOPPED) {
+		if (stopRequested) {
+			// already stopped
+		} else if (homeRequested && !limitDown) {
+			state = MOVING_DOWN;
+			// target maximum down position
+			gotoPosition(std::numeric_limits<long>::min());
+		} else if (targetPosition > position && !limitUp) {
+			state = MOVING_UP;
+		} else if (targetPosition < position && !limitDown) {
+			state = MOVING_DOWN;
+		}
+	} else if (state == MOVING_UP) {
+		if (stopRequested) {
+			state = STOPPED;
+		} else if (limitUp || position >= targetPosition) {
+			state = STOPPED;
+		}
+	} else if (state == MOVING_DOWN) {
+		if (stopRequested) {
+			state = STOPPED;
+		} else if (limitDown || position <= targetPosition) {
+			state = STOPPED;
+		}
+	}
+
+	// act
+	if (state == STOPPED) {
 		if (previousState != state) {
-			Debug::getInstance()->info("Actuator::write MOVING_UP");
+			Debug::getInstance()->info("Actuator::write STOPPED " + String(position));
+		}
+	} else if (state == MOVING_UP) {
+		if (previousState != state) {
+			Debug::getInstance()->info("Actuator::write MOVING_UP " + String(position));
 		}
 		position++;
 		up();
 		pulse();
-	} else if (state == Actuator::State::MOVING_DOWN) {
+	} else if (state == MOVING_DOWN) {
 		if (previousState != state) {
-			Debug::getInstance()->info("Actuator::write MOVING_DOWN");
+			Debug::getInstance()->info("Actuator::write MOVING_DOWN " + String(position));
 		}
 		position--;
 		down();
 		pulse();
-	} else {
-		if (previousState != state) {
-			Debug::getInstance()->info("Actuator::write STOPPED");
-		}
 	}
+
+	stopRequested = false;
+	homeRequested = false;
+}
+
+void Actuator::gotoHome() {
+	homeRequested = true;
+}
+
+void Actuator::stop() {
+	stopRequested = true;
 }
 
 void Actuator::up() {
@@ -128,16 +161,17 @@ boolean Actuator::isLimitUp() {
 	return limitUp;
 }
 
-Actuator::State Actuator::getState() {
-	return state;
+boolean Actuator::isStopped() {
+	return state == STOPPED;
 }
 
 long Actuator::getPosition() {
 	return position;
 }
 
-void Actuator::setTargetPosition(long p) {
+void Actuator::gotoPosition(long p) {
 	targetPosition = p;
-	Debug::getInstance()->info("Actuator::setTargetPosition " + String(targetPosition));
+	// too often
+	// Debug::getInstance()->info("Actuator::gotoPosition " + String(targetPosition));
 }
 

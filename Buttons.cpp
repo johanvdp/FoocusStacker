@@ -13,8 +13,8 @@ Buttons::~Buttons() {
 
 void Buttons::setup() {
 	Debug::getInstance()->info("Buttons::setup");
-	// configuration all buttons as input
 	Wire.beginTransmission(I2C_BUTTONS);
+	// configure all buttons as input
 	Wire.write(0xFF);
 	Wire.endTransmission();
 }
@@ -30,7 +30,7 @@ byte Buttons::readHardware() {
 	if (Wire.available()) {
 		return Wire.read();
 	}
-	Debug::getInstance()->info("Buttons::readHardware failed");
+	Debug::getInstance()->error("Buttons::readHardware failed");
 	return 0xFF;
 }
 
@@ -102,7 +102,12 @@ boolean Buttons::isActive(int index) {
 
 // get button active duration
 unsigned long Buttons::getActiveDuration(int index) {
-	unsigned long duration = clock->getTimestamp() - activeSince[index];
+	unsigned long int since = activeSince[index];
+	if (since == 0) {
+		// not active
+		return 0;
+	}
+	unsigned long duration = clock->getTimestamp() - since;
 	return duration;
 }
 

@@ -10,7 +10,6 @@ Page::~Page() {
 }
 
 void Page::setup() {
-	Debug::getInstance()->info("Page::setup");
 }
 
 void Page::write() {
@@ -34,10 +33,6 @@ void Page::blink() {
 // 20 character LCD
 const String Page::blankTemplate = "                    ";
 const String Page::zeroTemplate = "00000000000000000000";
-
-//void Page::display() {
-//	Debug::getInstance()->info("Page::display should be overriden");
-//}
 
 String Page::toFixed(String text, int fixedLength) {
 	String maxed = text.substring(0, fixedLength);

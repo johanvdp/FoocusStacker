@@ -23,7 +23,7 @@ private:
 	static const int CONFIGURE_NEXT = 1;
 	static const int CONFIGURE_PREV = 2;
 	static const int CONFIGURE_STOP = 3;
-	static const int CONFIGURE_UP = 4;
+	static const int CONFIGURE_UP = 7;
 
 	void changeItemValueSpinDown();
 	void changeItemValueSpinUp();

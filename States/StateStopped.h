@@ -20,9 +20,9 @@ private:
 
 	static const int STOPPED_INFO = 0;
 	static const int STOPPED_HOME = 2;
-	static const int STOPPED_CONF = 4;
-	static const int STOPPED_PLAY = 5;
-	static const int STOPPED_RECORD = 6;
-	static const int STOPPED_MANUAL = 7;
+	static const int STOPPED_CONF = 7;
+	static const int STOPPED_PLAY = 6;
+	static const int STOPPED_RECORD = 5;
+	static const int STOPPED_MANUAL = 4;
 };
 #endif

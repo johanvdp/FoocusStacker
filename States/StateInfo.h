@@ -20,7 +20,7 @@ public:
 private:
 
 	static const int INFO_STOP = 3;
-	static const int INFO_NEXT = 7;
+	static const int INFO_NEXT = 4;
 
 	Information* info;
 };

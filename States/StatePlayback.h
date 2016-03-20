@@ -13,21 +13,23 @@ class StatePlayback;
 class StatePlayback: public State {
 
 public:
+	enum PlaybackState {
+		WAIT_FOR_CAMERA,
+		WAIT_FOR_ACTUATOR
+	};
 
 	StatePlayback(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a, Camera* cam,
 			Configuration* c, Recording* r);
 	virtual ~StatePlayback();
 
 	void setup();
-	void read();
 	void process();
-	void write();
 
 private:
 
 	static const int PLAYBACK_STOP = 3;
 
-	void clicks();
+	void click();
 	void nextIteration();
 
 	Actuator* actuator;
@@ -35,11 +37,11 @@ private:
 	Configuration* configuration;
 	Recording* recording;
 
-	long stepCount = 0;
+	PlaybackState playbackState;
 	long stepIntervalMs = 0;
-	int clickCount = 0;
 	long clickIntervalMs = 0;
 	long iterations = 0;
 	long initialPosition = 0;
+	boolean firstStep = true;
 };
 #endif

@@ -5,8 +5,8 @@
 #include "Domain.h"
 
 // camera control I/O
-#define CAMERA_FOCUS D6
-#define CAMERA_SHUTTER D7
+#define CAMERA_FOCUS D7
+#define CAMERA_SHUTTER D6
 
 Camera::Camera(Clock* clk, Configuration* c) :
 		Output() {
@@ -15,6 +15,9 @@ Camera::Camera(Clock* clk, Configuration* c) :
 	pressFocusTimestamp = 0;
 	pressShutterTimestamp = 0;
 	releaseBothTimestamp = 0;
+	iteration = 0;
+	state = READY;
+	clickRequested = false;
 }
 
 Camera::~Camera() {
@@ -27,32 +30,57 @@ void Camera::setup() {
 
 	digitalWrite(CAMERA_FOCUS, HIGH);
 	digitalWrite(CAMERA_SHUTTER, HIGH);
+
+	state = READY;
+	clickRequested = false;
 }
 
 void Camera::write() {
+
 	unsigned long now = clock->getTimestamp();
 
-	if (pressFocusTimestamp != 0 && now > pressFocusTimestamp) {
+	if (state == READY && clickRequested) {
+		iteration = configuration->getClickCount();
+		calculateWaitTimes();
+		state = WAIT_BEFORE_FOCUS;
+	} else if (state == WAIT_BEFORE_FOCUS && now > pressFocusTimestamp) {
 		digitalWrite(CAMERA_FOCUS, LOW);
-		pressFocusTimestamp = 0;
 		Debug::getInstance()->info("Camera::write focus");
-	} else if (pressShutterTimestamp != 0 && now > pressShutterTimestamp) {
+		state = WAIT_BEFORE_SHUTTER;
+	} else if (state == WAIT_BEFORE_SHUTTER && now > pressShutterTimestamp) {
 		digitalWrite(CAMERA_SHUTTER, LOW);
-		pressShutterTimestamp = 0;
 		Debug::getInstance()->info("Camera::write shutter");
-	} else if (releaseBothTimestamp != 0 && now > releaseBothTimestamp) {
+		state = WAIT_BEFORE_RELEASE;
+	} else if (state == WAIT_BEFORE_RELEASE && now > releaseBothTimestamp) {
 		digitalWrite(CAMERA_SHUTTER, HIGH);
 		digitalWrite(CAMERA_FOCUS, HIGH);
-		releaseBothTimestamp = 0;
 		Debug::getInstance()->info("Camera::write release");
+		iteration--;
+		if (iteration > 0) {
+			calculateWaitTimes();
+			state = WAIT_BEFORE_FOCUS;
+		} else {
+			state = READY;
+		}
 	}
+
+	clickRequested = false;
 }
 
 void Camera::click() {
-	unsigned long now = clock->getTimestamp();
-
-	pressFocusTimestamp = now;
-	pressShutterTimestamp = now + 500;
-	releaseBothTimestamp = now + 1000;
+	clickRequested = true;
 }
 
+void Camera::calculateWaitTimes() {
+
+	unsigned long now = clock->getTimestamp();
+	long int clickIntervalMs = configuration->getClickIntervalMs();
+
+	pressFocusTimestamp = now + clickIntervalMs;
+	pressShutterTimestamp = pressFocusTimestamp + 10;
+	releaseBothTimestamp = pressShutterTimestamp + 40;
+}
+
+boolean Camera::isReady() {
+	return state == READY && !clickRequested;
+}
