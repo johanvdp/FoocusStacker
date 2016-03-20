@@ -64,7 +64,7 @@ void StatePlayback::process() {
 					iterations--;
 					// start playback at beginning of record
 					recording->resetStepIndex();
-					firstStep = true;
+					firstStep = false;
 					actuator->gotoPosition(
 							actuator->getPosition()
 									+ recording->getCurrentStepPosition());
