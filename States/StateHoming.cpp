@@ -23,5 +23,7 @@ void StateHoming::process() {
 		stateMachine->stateGotoStopped();
 	} else if (actuator->isLimitDown()) {
 		stateMachine->stateGotoStopped();
+	} else {
+		page->update();
 	}
 }
