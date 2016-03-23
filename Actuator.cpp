@@ -79,11 +79,13 @@ void Actuator::write() {
 	previousState = state;
 	if (state == STOPPED) {
 		if (stopRequested) {
-			// already stopped
+			// do not start moving again
+			targetPosition = position;
+			state = STOPPED;
 		} else if (homeRequested && !limitDown) {
-			state = MOVING_DOWN;
 			// target maximum down position
 			gotoPosition(std::numeric_limits<long>::min());
+			state = MOVING_DOWN;
 		} else if (targetPosition > position && !limitUp) {
 			state = MOVING_UP;
 		} else if (targetPosition < position && !limitDown) {
@@ -91,14 +93,23 @@ void Actuator::write() {
 		}
 	} else if (state == MOVING_UP) {
 		if (stopRequested) {
+			// do not start moving again
+			targetPosition = position;
 			state = STOPPED;
 		} else if (limitUp || position >= targetPosition) {
 			state = STOPPED;
 		}
 	} else if (state == MOVING_DOWN) {
 		if (stopRequested) {
+			// do not start moving again
+			targetPosition = position;
 			state = STOPPED;
-		} else if (limitDown || position <= targetPosition) {
+		} else if (limitDown) {
+			// at home position
+			position = 0;
+			targetPosition = 0;
+			state = STOPPED;
+		} else if (targetPosition >= position) {
 			state = STOPPED;
 		}
 	}
