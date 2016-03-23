@@ -13,6 +13,8 @@ StateHoming::~StateHoming() {
 void StateHoming::setup() {
 	Debug::getInstance()->info("StateHoming::setup");
 	actuator->gotoHome();
+
+	State::setup();
 }
 
 void StateHoming::process() {
@@ -23,7 +25,5 @@ void StateHoming::process() {
 		stateMachine->stateGotoStopped();
 	} else if (actuator->isLimitDown()) {
 		stateMachine->stateGotoStopped();
-	} else {
-		page->update();
 	}
 }
