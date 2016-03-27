@@ -41,6 +41,7 @@ void Actuator::setup() {
 
 	digitalWrite(DIRECTION, HIGH);
 	digitalWrite(PULSE, HIGH);
+	actuatorDisable();
 }
 
 void Actuator::read() {
@@ -119,11 +120,13 @@ void Actuator::write() {
 	// act
 	if (state == STOPPED) {
 		if (previousState != state) {
+			actuatorDisable();
 			Debug::getInstance()->info(
 					"Actuator::write STOPPED " + String(position));
 		}
 	} else if (state == MOVING_UP) {
 		if (previousState != state) {
+			actuatorEnable();
 			Debug::getInstance()->info(
 					"Actuator::write MOVING_UP " + String(position));
 		}
@@ -132,6 +135,7 @@ void Actuator::write() {
 		actuatorPulse();
 	} else if (state == MOVING_DOWN) {
 		if (previousState != state) {
+			actuatorEnable();
 			Debug::getInstance()->info(
 					"Actuator::write MOVING_DOWN " + String(position));
 		}
@@ -169,7 +173,11 @@ void Actuator::actuatorPulse() {
 	digitalWrite(PULSE, HIGH);
 }
 
-void Actuator::actuatorStop() {
+void Actuator::actuatorEnable() {
+	digitalWrite(ENABLE, LOW);
+}
+
+void Actuator::actuatorDisable() {
 	if (configuration->isActuatorHold()) {
 		digitalWrite(ENABLE, LOW);
 	} else {

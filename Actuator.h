@@ -42,7 +42,8 @@ private:
 	void actuatorPulse();
 	void actuatorUp();
 	void actuatorDown();
-	void actuatorStop();
+	void actuatorDisable();
+	void actuatorEnable();
 
 	boolean limitUp;
 	boolean limitDown;
