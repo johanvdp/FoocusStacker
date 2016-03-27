@@ -2,7 +2,7 @@
 #include "StateMachine.h"
 
 StateMachine::StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Camera* cam,
-		Configuration* c, Recording* r, Information* i) {
+		Configuration* c, Recording* r, Information* i, Powersupply* psu) {
 
 	StoppedPage* stoppedPage = new StoppedPage(l);
 	HomingPage* homingPage = new HomingPage(l, a);
@@ -18,7 +18,7 @@ StateMachine::StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Camera* 
 	record = new StateRecord(clk, this, b, recordPage, c, r);
 	playback = new StatePlayback(clk, this, b, playbackPage, a, cam, c, r);
 	configuration = new StateConfiguration(clk, this, b, configurationPage, c);
-	info = new StateInfo(clk, this, b, informationPage, i);
+	info = new StateInfo(clk, this, b, informationPage, i, psu);
 
 	current = stopped;
 }

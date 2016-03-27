@@ -24,13 +24,14 @@
 #include "StateInfo.h"
 #include "StateConfiguration.h"
 #include "../Statistics.h"
+#include "../Powersupply.h"
 
 class StateMachine: public FullProcess {
 
 public:
 
 	StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Camera* cam, Configuration* c,
-			Recording* r, Information* i);
+			Recording* r, Information* i, Powersupply* psu);
 	virtual ~StateMachine();
 
 	void setup();

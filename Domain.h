@@ -65,9 +65,11 @@ public:
 	long getClickIntervalMs();
 	long getIterations();
 
+	boolean isDebugDebugEnabled();
 	boolean isDebugInfoEnabled();
 	boolean isDebugErrorEnabled();
 	long getActuatorDelayMs();
+	boolean isActuatorHold();
 
 private:
 
@@ -78,25 +80,27 @@ private:
 	static const int CONFIGURATION_ITEM_ITERATIONS = 4;
 	static const int CONFIGURATION_ITEM_DEBUG_ERRORS_ENABLED = 5;
 	static const int CONFIGURATION_ITEM_DEBUG_INFO_ENABLED = 6;
-	static const int CONFIGURATION_ITEM_ACTUATOR_DELAY_MS = 7;
-	static const int CONFIGURATION_ITEM_COUNT = 8;
+	static const int CONFIGURATION_ITEM_DEBUG_DEBUG_ENABLED = 7;
+	static const int CONFIGURATION_ITEM_ACTUATOR_DELAY_MS = 8;
+	static const int CONFIGURATION_ITEM_ACTUATOR_HOLD = 9;
+	static const int CONFIGURATION_ITEM_COUNT = 10;
 
 	String itemNames[CONFIGURATION_ITEM_COUNT] = {
 			//
 			"step count", "step interval", "click count", "click interval",
-			"iterations", "debug errors", "debug info", "actuator delay" };
+			"iterations", "debug errors", "debug info", "debug debug", "actuator delay", "actuator hold" };
 	String itemUnits[CONFIGURATION_ITEM_COUNT] = {
 	//
-			"", "[s]", "", "[ms]", "", "0=no 1=yes", "0=no 1=yes", "[ms]" };
+			"", "[s]", "", "[ms]", "", "0=no 1=yes", "0=no 1=yes", "0=no 1=yes", "[ms]", "0=no 1=yes" };
 	long itemValues[CONFIGURATION_ITEM_COUNT] = {
 	//
-			1, 0, 1, 250, 5, 1, 1, 10 };
+			1, 0, 1, 250, 5, 1, 1, 0, 10, 0 };
 	long itemValuesMin[CONFIGURATION_ITEM_COUNT] = {
 	//
-			1, 0, 1, 1, 1, 0, 0, 1 };
+			1, 0, 1, 1, 1, 0, 0, 0, 1, 0 };
 	long itemValuesMax[CONFIGURATION_ITEM_COUNT] = {
 	//
-			Recording::RECORD_STEP_COUNT, 3600, 100, 3600, 1000, 1, 1, 1000 };
+			Recording::RECORD_STEP_COUNT, 3600, 100, 3600, 1000, 1, 1, 1, 1000, 1 };
 	int itemIndex = 0;
 };
 
@@ -114,6 +118,7 @@ public:
 	long getCurrentItemValue();
 	void setSupplyVoltageMilliV(unsigned long value);
 	void setSupplyCurrentMilliA(unsigned long value);
+	void setSupplyPowerMilliW(unsigned long value);
 	void setStatisticsAverageMillis(unsigned long value);
 	void setStatisticsMinimumMillis(unsigned long value);
 	void setStatisticsMaximumMillis(unsigned long value);
@@ -123,16 +128,17 @@ private:
 
 	static const int INFO_ITEM_SUPPLY_VOLTAGE_MV = 0;
 	static const int INFO_ITEM_SUPPLY_CURRENT_MA = 1;
-	static const int INFO_ITEM_STATISTICS_AVERAGE_MS = 2;
-	static const int INFO_ITEM_STATISTICS_MINIMUM_MS = 3;
-	static const int INFO_ITEM_STATISTICS_MAXIMUM_MS = 4;
-	static const int INFO_ITEM_COUNT = 5;
+	static const int INFO_ITEM_SUPPLY_POWER_MW = 2;
+	static const int INFO_ITEM_STATISTICS_AVERAGE_MS = 3;
+	static const int INFO_ITEM_STATISTICS_MINIMUM_MS = 4;
+	static const int INFO_ITEM_STATISTICS_MAXIMUM_MS = 5;
+	static const int INFO_ITEM_COUNT = 6;
 
-	String itemNames[INFO_ITEM_COUNT] = { "supply voltage", "supply current",
+	String itemNames[INFO_ITEM_COUNT] = { "voltage", "current", "power",
 			"statistics average", "statistics minimum", "statistics maximum" };
 	String itemUnits[INFO_ITEM_COUNT] =
-			{ "[mV]", "[mA]", "[ms]", "[ms]", "[ms]" };
-	unsigned long itemValues[INFO_ITEM_COUNT] = { 0, 0, 0, 0, 0 };
+			{ "[mV]", "[mA]", "[mW]", "[ms]", "[ms]", "[ms]" };
+	unsigned long itemValues[INFO_ITEM_COUNT] = { 0, 0, 0, 0, 0, 0 };
 	int itemIndex = 0;
 };
 

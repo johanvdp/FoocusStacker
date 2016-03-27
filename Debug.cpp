@@ -28,6 +28,13 @@ Debug::~Debug() {
 
 void Debug::setup() {
 	Serial.begin(115200);
+	Debug::getInstance()->info("Debug::setup");
+}
+
+void Debug::debug(String debug) {
+	if (configuration->isDebugDebugEnabled()) {
+		Serial.println(timestamps() + " DEBUG " + debug);
+	}
 }
 
 void Debug::info(String info) {

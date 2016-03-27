@@ -72,14 +72,6 @@ class FoocusStacker {
 public:
 
 	FoocusStacker();
-	LiquidCrystal_I2C* getLCD();
-	Clock* getClock();
-	Information* getInformation();
-	Buttons* getButtons();
-	Actuator* getActuator();
-	Configuration* getConfiguration();
-	Recording* getRecording();
-	StateMachine* getStateMachine();
 
 	void setup();
 	void loop();
@@ -93,6 +85,7 @@ private:
 	Buttons* buttons;
 	Actuator* actuator;
 	Camera* camera;
+	Powersupply* powersupply;
 	Configuration* configuration;
 	Recording* recording;
 	StateMachine* stateMachine;

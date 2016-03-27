@@ -39,9 +39,10 @@ private:
 
 	Configuration* configuration;
 
-	void pulse();
-	void up();
-	void down();
+	void actuatorPulse();
+	void actuatorUp();
+	void actuatorDown();
+	void actuatorStop();
 
 	boolean limitUp;
 	boolean limitDown;

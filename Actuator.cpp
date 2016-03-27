@@ -13,6 +13,7 @@
 // stepper motor driver I/O
 #define DIRECTION D1
 #define PULSE D2
+#define ENABLE D8
 
 Actuator::Actuator(Configuration* c) :
 		FullProcess() {
@@ -36,6 +37,7 @@ void Actuator::setup() {
 	pinMode(LIMIT_DOWN, INPUT);
 	pinMode(DIRECTION, OUTPUT);
 	pinMode(PULSE, OUTPUT);
+	pinMode(ENABLE, OUTPUT);
 
 	digitalWrite(DIRECTION, HIGH);
 	digitalWrite(PULSE, HIGH);
@@ -117,22 +119,25 @@ void Actuator::write() {
 	// act
 	if (state == STOPPED) {
 		if (previousState != state) {
-			Debug::getInstance()->info("Actuator::write STOPPED " + String(position));
+			Debug::getInstance()->info(
+					"Actuator::write STOPPED " + String(position));
 		}
 	} else if (state == MOVING_UP) {
 		if (previousState != state) {
-			Debug::getInstance()->info("Actuator::write MOVING_UP " + String(position));
+			Debug::getInstance()->info(
+					"Actuator::write MOVING_UP " + String(position));
 		}
 		position++;
-		up();
-		pulse();
+		actuatorUp();
+		actuatorPulse();
 	} else if (state == MOVING_DOWN) {
 		if (previousState != state) {
-			Debug::getInstance()->info("Actuator::write MOVING_DOWN " + String(position));
+			Debug::getInstance()->info(
+					"Actuator::write MOVING_DOWN " + String(position));
 		}
 		position--;
-		down();
-		pulse();
+		actuatorDown();
+		actuatorPulse();
 	}
 
 	stopRequested = false;
@@ -147,21 +152,29 @@ void Actuator::stop() {
 	stopRequested = true;
 }
 
-void Actuator::up() {
+void Actuator::actuatorUp() {
 	digitalWrite(DIRECTION, LOW);
 	delayMicroseconds(configuration->getActuatorDelayMs());
 }
 
-void Actuator::down() {
+void Actuator::actuatorDown() {
 	digitalWrite(DIRECTION, HIGH);
 	delayMicroseconds(configuration->getActuatorDelayMs());
 }
 
-void Actuator::pulse() {
+void Actuator::actuatorPulse() {
 	digitalWrite(PULSE, LOW);
 	// pulse 1us low
 	delayMicroseconds(1);
 	digitalWrite(PULSE, HIGH);
+}
+
+void Actuator::actuatorStop() {
+	if (configuration->isActuatorHold()) {
+		digitalWrite(ENABLE, LOW);
+	} else {
+		digitalWrite(ENABLE, HIGH);
+	}
 }
 
 boolean Actuator::isLimitDown() {

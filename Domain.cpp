@@ -142,8 +142,16 @@ boolean Configuration::isDebugInfoEnabled() {
 	return itemValues[CONFIGURATION_ITEM_DEBUG_INFO_ENABLED] != 0;
 }
 
+boolean Configuration::isDebugDebugEnabled() {
+	return itemValues[CONFIGURATION_ITEM_DEBUG_DEBUG_ENABLED] != 0;
+}
+
 long Configuration::getActuatorDelayMs() {
 	return itemValues[CONFIGURATION_ITEM_ACTUATOR_DELAY_MS];
+}
+
+boolean Configuration::isActuatorHold() {
+	return itemValues[CONFIGURATION_ITEM_ACTUATOR_HOLD] != 0;
 }
 
 
@@ -179,6 +187,10 @@ void Information::setSupplyVoltageMilliV(unsigned long value) {
 
 void Information::setSupplyCurrentMilliA(unsigned long value) {
 	itemValues[INFO_ITEM_SUPPLY_CURRENT_MA] = value;
+}
+
+void Information::setSupplyPowerMilliW(unsigned long value) {
+	itemValues[INFO_ITEM_SUPPLY_POWER_MW] = value;
 }
 
 void Information::setStatisticsAverageMillis(unsigned long value) {
