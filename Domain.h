@@ -2,8 +2,6 @@
 #ifndef DOMAIN_H
 #define DOMAIN_H
 
-#include <WString.h>
-
 // forward declarations
 class Configuration;
 
@@ -62,7 +60,8 @@ public:
 	long getStepCount();
 	long getStepIntervalMs();
 	long getClickCount();
-	long getClickIntervalMs();
+	long getCameraShakeDelayMs();
+	long getCameraSaveDurationMs();
 	long getIterations();
 
 	boolean isDebugDebugEnabled();
@@ -76,31 +75,32 @@ private:
 	static const int CONFIGURATION_ITEM_STEP_COUNT = 0;
 	static const int CONFIGURATION_ITEM_STEP_INTERVAL_S = 1;
 	static const int CONFIGURATION_ITEM_CLICK_COUNT = 2;
-	static const int CONFIGURATION_ITEM_CLICK_INTERVAL_MS = 3;
-	static const int CONFIGURATION_ITEM_ITERATIONS = 4;
-	static const int CONFIGURATION_ITEM_DEBUG_ERRORS_ENABLED = 5;
-	static const int CONFIGURATION_ITEM_DEBUG_INFO_ENABLED = 6;
-	static const int CONFIGURATION_ITEM_DEBUG_DEBUG_ENABLED = 7;
-	static const int CONFIGURATION_ITEM_ACTUATOR_DELAY_MS = 8;
-	static const int CONFIGURATION_ITEM_ACTUATOR_HOLD = 9;
-	static const int CONFIGURATION_ITEM_COUNT = 10;
+	static const int CONFIGURATION_ITEM_CAMERA_SHAKE_DELAY_MS = 3;
+	static const int CONFIGURATION_ITEM_CAMERA_SAVE_DURATION_MS = 4;
+	static const int CONFIGURATION_ITEM_ITERATIONS = 5;
+	static const int CONFIGURATION_ITEM_DEBUG_ERRORS_ENABLED = 6;
+	static const int CONFIGURATION_ITEM_DEBUG_INFO_ENABLED = 7;
+	static const int CONFIGURATION_ITEM_DEBUG_DEBUG_ENABLED = 8;
+	static const int CONFIGURATION_ITEM_ACTUATOR_DELAY_MS = 9;
+	static const int CONFIGURATION_ITEM_ACTUATOR_HOLD = 10;
+	static const int CONFIGURATION_ITEM_COUNT = 11;
 
 	String itemNames[CONFIGURATION_ITEM_COUNT] = {
 			//
-			"step count", "step interval", "click count", "click interval",
+			"step count", "step interval", "click count", "camera shake delay", "camera save duration",
 			"iterations", "debug errors", "debug info", "debug debug", "actuator delay", "actuator hold" };
 	String itemUnits[CONFIGURATION_ITEM_COUNT] = {
 	//
-			"", "[s]", "", "[ms]", "", "0=no 1=yes", "0=no 1=yes", "0=no 1=yes", "[ms]", "0=no 1=yes" };
+			"", "[s]", "", "[ms]", "[ms]", "", "0=no 1=yes", "0=no 1=yes", "0=no 1=yes", "[ms]", "0=no 1=yes" };
 	long itemValues[CONFIGURATION_ITEM_COUNT] = {
 	//
-			1, 0, 1, 250, 5, 1, 1, 0, 10, 0 };
+			1, 0, 1, 500, 1000, 5, 1, 1, 0, 10, 0 };
 	long itemValuesMin[CONFIGURATION_ITEM_COUNT] = {
 	//
-			1, 0, 1, 1, 1, 0, 0, 0, 1, 0 };
+			1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0 };
 	long itemValuesMax[CONFIGURATION_ITEM_COUNT] = {
 	//
-			Recording::RECORD_STEP_COUNT, 3600, 100, 3600, 1000, 1, 1, 1, 1000, 1 };
+			Recording::RECORD_STEP_COUNT, 3600, 100, 5000, 5000, 1000, 1, 1, 1, 1000, 1 };
 	int itemIndex = 0;
 };
 

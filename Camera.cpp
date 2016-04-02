@@ -15,6 +15,7 @@ Camera::Camera(Clock* clk, Configuration* c) :
 	pressFocusTimestamp = 0;
 	pressShutterTimestamp = 0;
 	releaseBothTimestamp = 0;
+	finishTimestamp = 0;
 	iteration = 0;
 	state = READY;
 	clickRequested = false;
@@ -55,6 +56,9 @@ void Camera::write() {
 		digitalWrite(CAMERA_SHUTTER, HIGH);
 		digitalWrite(CAMERA_FOCUS, HIGH);
 		Debug::getInstance()->info("Camera::write release");
+		state = WAIT_BEFORE_FINISH;
+	} else if (state == WAIT_BEFORE_FINISH && now > finishTimestamp) {
+		Debug::getInstance()->info("Camera::write finish");
 		iteration--;
 		if (iteration > 0) {
 			calculateWaitTimes();
@@ -74,11 +78,13 @@ void Camera::click() {
 void Camera::calculateWaitTimes() {
 
 	unsigned long now = clock->getTimestamp();
-	long int clickIntervalMs = configuration->getClickIntervalMs();
+	long int cameraShakeDelayMs = configuration->getCameraShakeDelayMs();
+	long int cameraSaveDurationMs = configuration->getCameraSaveDurationMs();
 
-	pressFocusTimestamp = now + clickIntervalMs;
+	pressFocusTimestamp = now + cameraShakeDelayMs;
 	pressShutterTimestamp = pressFocusTimestamp + 10;
 	releaseBothTimestamp = pressShutterTimestamp + 40;
+	finishTimestamp = releaseBothTimestamp + cameraSaveDurationMs;
 }
 
 boolean Camera::isReady() {

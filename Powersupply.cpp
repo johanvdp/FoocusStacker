@@ -3,7 +3,6 @@
 #include "Powersupply.h"
 
 #include <Wire.h>
-#include <WString.h>
 
 #include "Debug.h"
 

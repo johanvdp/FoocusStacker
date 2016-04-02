@@ -17,6 +17,7 @@ public:
 		WAIT_BEFORE_FOCUS,
 		WAIT_BEFORE_SHUTTER,
 		WAIT_BEFORE_RELEASE,
+		WAIT_BEFORE_FINISH,
 	};
 
 	Camera(Clock* clock, Configuration* configuration);
@@ -40,6 +41,7 @@ private:
 	unsigned long pressFocusTimestamp;
 	unsigned long pressShutterTimestamp;
 	unsigned long releaseBothTimestamp;
+	unsigned long finishTimestamp;
 };
 
 #endif

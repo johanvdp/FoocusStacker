@@ -126,8 +126,12 @@ long Configuration::getClickCount() {
 	return itemValues[CONFIGURATION_ITEM_CLICK_COUNT];
 }
 
-long Configuration::getClickIntervalMs() {
-	return itemValues[CONFIGURATION_ITEM_CLICK_INTERVAL_MS];
+long Configuration::getCameraShakeDelayMs() {
+	return itemValues[CONFIGURATION_ITEM_CAMERA_SHAKE_DELAY_MS];
+}
+
+long Configuration::getCameraSaveDurationMs() {
+	return itemValues[CONFIGURATION_ITEM_CAMERA_SAVE_DURATION_MS];
 }
 
 long Configuration::getIterations() {
