@@ -87,7 +87,7 @@ RecordingConfiguration::~RecordingConfiguration() {
 }
 
 int RecordingConfiguration::getItemCount() {
-	return RECORDING_CONFIGURATION_ITEM_COUNT;
+	return ITEM_COUNT;
 }
 
 String* RecordingConfiguration::getItemNames() {
@@ -111,13 +111,13 @@ long* RecordingConfiguration::getItemValuesMax() {
 }
 
 long RecordingConfiguration::getStepCount() {
-	return itemValues[RECORDING_CONFIGURATION_ITEM_STEP_COUNT];
+	return itemValues[ITEM_STEP_COUNT];
 }
 
 long RecordingConfiguration::getStepIntervalMs() {
-	return itemValues[RECORDING_CONFIGURATION_ITEM_STEP_INTERVAL_S] * 1000;
+	return itemValues[ITEM_STEP_INTERVAL_S] * 1000;
 }
 
 long RecordingConfiguration::getIterations() {
-	return itemValues[RECORDING_CONFIGURATION_ITEM_ITERATIONS];
+	return itemValues[ITEM_ITERATIONS];
 }

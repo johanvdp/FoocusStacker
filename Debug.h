@@ -59,26 +59,17 @@ protected:
 
 private:
 
-	static const int DEBUG_CONFIGURATION_ITEM_DEBUG_ERRORS_ENABLED = 0;
-	static const int DEBUG_CONFIGURATION_ITEM_DEBUG_INFO_ENABLED = 1;
-	static const int DEBUG_CONFIGURATION_ITEM_DEBUG_DEBUG_ENABLED = 2;
-	static const int DEBUG_CONFIGURATION_ITEM_COUNT = 3;
+	static const int ITEM_DEBUG_ERRORS_ENABLED = 0;
+	static const int ITEM_DEBUG_INFO_ENABLED = 1;
+	static const int ITEM_DEBUG_DEBUG_ENABLED = 2;
+	static const int ITEM_COUNT = 3;
 
-	String itemNames[DEBUG_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"debug errors", "debug info", "debug debug" };
-	String itemUnits[DEBUG_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"0=no 1=yes", "0=no 1=yes", "0=no 1=yes" };
-	long itemValues[DEBUG_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1, 1, 0 };
-	long itemValuesMin[DEBUG_CONFIGURATION_ITEM_COUNT] = {
-	//
-			0, 0, 0 };
-	long itemValuesMax[DEBUG_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1, 1, 1 };
+	String itemNames[ITEM_COUNT] =
+			{ "debug errors", "debug info", "debug debug" };
+	String itemUnits[ITEM_COUNT] = { "0=no 1=yes", "0=no 1=yes", "0=no 1=yes" };
+	long itemValues[ITEM_COUNT] = { 1, 1, 0 };
+	long itemValuesMin[ITEM_COUNT] = { 0, 0, 0 };
+	long itemValuesMax[ITEM_COUNT] = { 1, 1, 1 };
 };
 
 #endif

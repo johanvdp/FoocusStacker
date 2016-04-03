@@ -66,26 +66,17 @@ public:
 
 private:
 
-	static const int CAMERA_CONFIGURATION_ITEM_CLICK_COUNT = 0;
-	static const int CAMERA_CONFIGURATION_ITEM_CAMERA_SHAKE_DELAY_MS = 1;
-	static const int CAMERA_CONFIGURATION_ITEM_CAMERA_SAVE_DURATION_MS = 2;
-	static const int CAMERA_CONFIGURATION_ITEM_COUNT = 3;
+	static const int ITEM_CLICK_COUNT = 0;
+	static const int ITEM_CAMERA_SHAKE_DELAY_MS = 1;
+	static const int ITEM_CAMERA_SAVE_DURATION_MS = 2;
+	static const int ITEM_COUNT = 3;
 
-	String itemNames[CAMERA_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"click count", "camera deshake", "camera busy" };
-	String itemUnits[CAMERA_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"", "[ms]", "[ms]" };
-	long itemValues[CAMERA_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1, 500, 1000 };
-	long itemValuesMin[CAMERA_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1, 1, 1 };
-	long itemValuesMax[CAMERA_CONFIGURATION_ITEM_COUNT] = {
-	//
-			100, 5000, 5000 };
+	String itemNames[ITEM_COUNT] = { "click count", "camera deshake",
+			"camera busy" };
+	String itemUnits[ITEM_COUNT] = { "", "[ms]", "[ms]" };
+	long itemValues[ITEM_COUNT] = { 1, 500, 1000 };
+	long itemValuesMin[ITEM_COUNT] = { 1, 1, 1 };
+	long itemValuesMax[ITEM_COUNT] = { 100, 5000, 5000 };
 };
 
 #endif

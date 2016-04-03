@@ -67,26 +67,18 @@ public:
 
 private:
 
-	static const int RECORDING_CONFIGURATION_ITEM_STEP_COUNT = 0;
-	static const int RECORDING_CONFIGURATION_ITEM_STEP_INTERVAL_S = 1;
-	static const int RECORDING_CONFIGURATION_ITEM_ITERATIONS = 2;
-	static const int RECORDING_CONFIGURATION_ITEM_COUNT = 3;
+	static const int ITEM_STEP_COUNT = 0;
+	static const int ITEM_STEP_INTERVAL_S = 1;
+	static const int ITEM_ITERATIONS = 2;
+	static const int ITEM_COUNT = 3;
 
-	String itemNames[RECORDING_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"step count", "step interval", "iterations" };
-	String itemUnits[RECORDING_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"", "[s]", "" };
-	long itemValues[RECORDING_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1, 0, 5 };
-	long itemValuesMin[RECORDING_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1, 0, 1 };
-	long itemValuesMax[RECORDING_CONFIGURATION_ITEM_COUNT] = {
-	//
-			Recording::RECORD_STEP_COUNT, 3600, 1000 };
+	String itemNames[ITEM_COUNT] =
+			{ "step count", "step interval", "iterations" };
+	String itemUnits[ITEM_COUNT] = { "", "[s]", "" };
+	long itemValues[ITEM_COUNT] = { 1, 0, 5 };
+	long itemValuesMin[ITEM_COUNT] = { 1, 0, 1 };
+	long itemValuesMax[ITEM_COUNT] =
+			{ Recording::RECORD_STEP_COUNT, 3600, 1000 };
 };
 
 #endif

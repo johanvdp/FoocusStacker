@@ -213,7 +213,7 @@ ActuatorConfiguration::~ActuatorConfiguration() {
 }
 
 int ActuatorConfiguration::getItemCount() {
-	return ACTUATOR_CONFIGURATION_ITEM_COUNT;
+	return ITEM_COUNT;
 }
 
 String* ActuatorConfiguration::getItemNames() {
@@ -237,9 +237,9 @@ long* ActuatorConfiguration::getItemValuesMax() {
 }
 
 long ActuatorConfiguration::getActuatorDelayMs() {
-	return itemValues[ACTUATOR_CONFIGURATION_ITEM_ACTUATOR_DELAY_MS];
+	return itemValues[ITEM_ACTUATOR_DELAY_MS];
 }
 
 boolean ActuatorConfiguration::isActuatorHold() {
-	return itemValues[ACTUATOR_CONFIGURATION_ITEM_ACTUATOR_HOLD] != 0;
+	return itemValues[ITEM_ACTUATOR_HOLD] != 0;
 }

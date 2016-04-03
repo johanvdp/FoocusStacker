@@ -77,25 +77,15 @@ public:
 
 private:
 
-	static const int ACTUATOR_CONFIGURATION_ITEM_ACTUATOR_DELAY_MS = 0;
-	static const int ACTUATOR_CONFIGURATION_ITEM_ACTUATOR_HOLD = 1;
-	static const int ACTUATOR_CONFIGURATION_ITEM_COUNT = 2;
+	static const int ITEM_ACTUATOR_DELAY_MS = 0;
+	static const int ITEM_ACTUATOR_HOLD = 1;
+	static const int ITEM_COUNT = 2;
 
-	String itemNames[ACTUATOR_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"actuator delay", "actuator hold" };
-	String itemUnits[ACTUATOR_CONFIGURATION_ITEM_COUNT] = {
-	//
-			"[us]", "0=no 1=yes" };
-	long itemValues[ACTUATOR_CONFIGURATION_ITEM_COUNT] = {
-	//
-			10, 0 };
-	long itemValuesMin[ACTUATOR_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1, 0 };
-	long itemValuesMax[ACTUATOR_CONFIGURATION_ITEM_COUNT] = {
-	//
-			1000, 1 };
+	String itemNames[ITEM_COUNT] = { "actuator delay", "actuator hold" };
+	String itemUnits[ITEM_COUNT] = { "[us]", "0=no 1=yes" };
+	long itemValues[ITEM_COUNT] = { 10, 0 };
+	long itemValuesMin[ITEM_COUNT] = { 1, 0 };
+	long itemValuesMax[ITEM_COUNT] = { 1000, 1 };
 };
 
 #endif

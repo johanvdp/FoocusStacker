@@ -76,7 +76,7 @@ DebugConfiguration::~DebugConfiguration() {
 }
 
 int DebugConfiguration::getItemCount() {
-	return DEBUG_CONFIGURATION_ITEM_COUNT;
+	return ITEM_COUNT;
 }
 
 String* DebugConfiguration::getItemNames() {
@@ -100,14 +100,14 @@ long* DebugConfiguration::getItemValuesMax() {
 }
 
 boolean DebugConfiguration::isDebugErrorEnabled() {
-	return itemValues[DEBUG_CONFIGURATION_ITEM_DEBUG_ERRORS_ENABLED] != 0;
+	return itemValues[ITEM_DEBUG_ERRORS_ENABLED] != 0;
 }
 
 boolean DebugConfiguration::isDebugInfoEnabled() {
-	return itemValues[DEBUG_CONFIGURATION_ITEM_DEBUG_INFO_ENABLED] != 0;
+	return itemValues[ITEM_DEBUG_INFO_ENABLED] != 0;
 }
 
 boolean DebugConfiguration::isDebugDebugEnabled() {
-	return itemValues[DEBUG_CONFIGURATION_ITEM_DEBUG_DEBUG_ENABLED] != 0;
+	return itemValues[ITEM_DEBUG_DEBUG_ENABLED] != 0;
 }
 

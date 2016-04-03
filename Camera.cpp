@@ -101,7 +101,7 @@ CameraConfiguration::~CameraConfiguration() {
 }
 
 int CameraConfiguration::getItemCount() {
-	return CAMERA_CONFIGURATION_ITEM_COUNT;
+	return ITEM_COUNT;
 }
 
 String* CameraConfiguration::getItemNames() {
@@ -125,13 +125,13 @@ long* CameraConfiguration::getItemValuesMax() {
 }
 
 long CameraConfiguration::getClickCount() {
-	return itemValues[CAMERA_CONFIGURATION_ITEM_CLICK_COUNT];
+	return itemValues[ITEM_CLICK_COUNT];
 }
 
 long CameraConfiguration::getCameraShakeDelayMs() {
-	return itemValues[CAMERA_CONFIGURATION_ITEM_CAMERA_SHAKE_DELAY_MS];
+	return itemValues[ITEM_CAMERA_SHAKE_DELAY_MS];
 }
 
 long CameraConfiguration::getCameraSaveDurationMs() {
-	return itemValues[CAMERA_CONFIGURATION_ITEM_CAMERA_SAVE_DURATION_MS];
+	return itemValues[ITEM_CAMERA_SAVE_DURATION_MS];
 }
