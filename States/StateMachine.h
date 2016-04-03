@@ -26,7 +26,7 @@
 #include "../Statistics.h"
 #include "../Powersupply.h"
 
-class StateMachine: public FullProcess {
+class StateMachine: public Component, Input, Output, Process {
 
 public:
 

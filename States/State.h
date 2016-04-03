@@ -11,7 +11,7 @@ class Page;
 #include "../Component.h"
 #include "../Statistics.h"
 
-class State: public FullProcess {
+class State: public Component, Input, Output, Process {
 
 public:
 

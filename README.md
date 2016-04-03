@@ -25,6 +25,7 @@ Reducing complexity by making all components similar in structure and usage.
 *   Recording
 *   Configuration
 *   Information
+*   Powersupply
 
 	
 

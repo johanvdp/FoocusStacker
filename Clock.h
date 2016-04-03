@@ -5,7 +5,10 @@
 #include <Arduino.h>
 #include "Component.h"
 
-class Clock: public Input {
+/**
+ * The clock provides time and must be updated on every loop.
+ */
+class Clock: public Component, Input {
 
 public:
 

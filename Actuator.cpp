@@ -15,8 +15,7 @@
 #define PULSE D2
 #define ENABLE D8
 
-Actuator::Actuator(Configuration* c) :
-		FullProcess() {
+Actuator::Actuator(Configuration* c) {
 	configuration = c;
 	limitUp = false;
 	limitDown = false;
@@ -71,9 +70,6 @@ void Actuator::read() {
 		}
 		limitDown = newLimitDown;
 	}
-}
-
-void Actuator::process() {
 }
 
 void Actuator::write() {

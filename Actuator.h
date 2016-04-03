@@ -7,7 +7,7 @@
 #include "Debug.h"
 
 
-class Actuator: public FullProcess {
+class Actuator: public Component, Input, Output {
 
 
 public:
@@ -22,7 +22,6 @@ public:
 
 	void setup();
 	void read();
-	void process();
 	void write();
 
 	void gotoHome();

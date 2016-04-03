@@ -178,10 +178,6 @@ boolean Powersupply::isReady() {
 	return state == IDLE;
 }
 
-void Powersupply::process() {
-	// nothing to do
-}
-
 void Powersupply::write() {
 	if (state == START_REQUESTED) {
 		writeRegister(REGISTER_CONFIG, configuration);

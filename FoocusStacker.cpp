@@ -4,6 +4,11 @@
 #define SDA D3
 #define SCL D4
 
+#define I2C_LCD 0x27
+
+/**
+ * Construct the application by constructing all its components.
+ */
 FoocusStacker::FoocusStacker() {
 
 	// 0x27 is the I2C bus address for an unmodified module
@@ -23,6 +28,11 @@ FoocusStacker::FoocusStacker() {
 			configuration, recording, information, powersupply);
 }
 
+/**
+ * Called once to setup the application.
+ *
+ * Will initialize (setup) all external libraries and components that make up the application.
+ */
 void FoocusStacker::setup() {
 
 	// I2C wire protocol for lcd and buttons
@@ -47,6 +57,14 @@ void FoocusStacker::setup() {
 	stateMachine->setup();
 }
 
+/**
+ * Called continuously to keep the application going.
+ *
+ * The application must execute and return quickly.
+ * If not, the ESP Arduino implementation can not perform its housekeeping tasks and the built-in watchdog timer will reset the chip/application.
+ *
+ * The components that make up the application are triggered to perform their respective Input, Process, and Output operations (in that order).
+ */
 void FoocusStacker::loop() {
 
 	// read all inputs
@@ -57,7 +75,6 @@ void FoocusStacker::loop() {
 	stateMachine->read();
 
 	// perform processing
-	actuator->process();
 	stateMachine->process();
 
 	// write all outputs
@@ -67,16 +84,23 @@ void FoocusStacker::loop() {
 	stateMachine->write();
 }
 
-// =========================================================
-// FOOCUS STACKER ENTRY POINT
-// =========================================================
-
+/**
+ * The singleton instance of the FoocusStacker application.
+ */
 FoocusStacker instance;
 
+/**
+ * Arduino setup entry point.
+ * Forwards the call into the application instance.
+ */
 void setup() {
 	instance.setup();
 }
 
+/**
+ * Arduino loop entry point.
+ * Forwards the call into the application instance.
+ */
 void loop() {
 	instance.loop();
 }

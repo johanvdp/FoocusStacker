@@ -9,7 +9,7 @@
 #include "Clock.h"
 #include "Debug.h"
 
-class Camera: public Output {
+class Camera: public Component, Output {
 
 public:
 	enum State {

@@ -1,11 +1,13 @@
 // The author disclaims copyright to this source code.
-#ifndef _FoocusStacker_H
-#define _FoocusStacker_H
+#ifndef FOOCUSSTACKER_H
+#define FOOCUSSTACKER_H
 
+// external libraries
 #include <Arduino.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
+// project components
 #include "Clock.h"
 #include "Domain.h"
 #include "Buttons.h"
@@ -16,57 +18,33 @@
 #include "States/StateMachine.h"
 #include "Debug.h"
 
-// =====================
-// D1mini edge connector
-// =====================
-// JP1 label  ESP info
-//   1    5V      USB ->|- 5V
-//   2     G
-//   3    D4  IO2 pull-up 10k, I2C SCL, LED active low
-//   4    D3  IO0 pull-up 10k, I2C SDA
-//   5    D2  IO4
-//   6    D1  IO5
-//   7    RX
-//   8    TX
-//
-// JP2 label  ESP info
-//   1   3V3
-//   2    D8 IO15 pull-down 10k
-//   3    D7 IO13
-//   4    D6 IO12
-//   5    D5 IO14
-//   6    D0 IO16
-//   7    A0      100k/220k divider
-//   8   RST      active low
-
-// ===================
-// Arduino pin mapping
-// ===================
-// D1mini arduino pin number
-// D0          16
-// D1           5
-// D2           4
-// D3           0
-// D4           2
-// D5          14
-// D6          12
-// D7          13
-// D8          15
-
-// =========================
-// FoocusStacker pin mapping
-// =========================
-// D1mini arduino pin number
-// D0          16 ACTUATOR LIMIT DOWN
-// D1           5 ACTUATOR DIRECTION
-// D2           4 ACTUATOR PULSE
-// D3           0 SDA
-// D4           2 SCL
-// D5          14 ACTUATOR LIMIT UP
-// D6          12 CAMERA FOCUS
-// D7          13 CAMERA SHUTTER
-// D8          15
-
+/**
+ * The FoocusStacker application.
+ * A singleton that is invoked by the Arduino setup and loop methods.
+ *
+ * D1mini edge connector
+ * ---------------------
+ *
+ * pin   | label | ESP  | arduino | circuitry                             | function            |
+ * :---: | :---: | :--: | :-----: | :------------------------------------ | :------------------ |
+ * JP1.1 | 5V    |      |         | USB 5V                                |                     |
+ * JP1.2 |  G    |      |         |                                       |                     |
+ * JP1.3 | D4    | IO2  |      2  | pull-up 10k, I2C SCL, LED active low  | SCL                 |
+ * JP1.4 | D3    | IO0  |      0  | pull-up 10k, I2C SDA                  | SDA                 |
+ * JP1.5 | D2    | IO4  |      4  |                                       | ACTUATOR PULSE      |
+ * JP1.6 | D1    | IO5  |      5  |                                       | ACTUATOR DIRECTION  |
+ * JP1.7 | RX    |      |         |                                       |                     |
+ * JP1.8 | TX    |      |         |                                       |                     |
+ * JP2.1 | 3V3   |      |         |                                       |                     |
+ * JP2.2 | D8    | IO15 |     15  | pull-down 10k                         | ACTUATOR ENABLE     |
+ * JP2.3 | D7    | IO13 |     13  |                                       | CAMERA FOCUS        |
+ * JP2.4 | D6    | IO12 |     12  |                                       | CAMERA SHUTTER      |
+ * JP2.5 | D5    | IO14 |     14  |                                       | ACTUATOR LIMIT DOWN |
+ * JP2.6 | D0    | IO16 |     16  |                                       | ACTUATOR LIMIT UP   |
+ * JP2.7 | A0    |      |         | 100k/220k divider                     |                     |
+ * JP2.8 | RST   |      |         | active low                            |                     |
+ *
+ */
 class FoocusStacker {
 
 public:

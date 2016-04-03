@@ -6,7 +6,7 @@
 #include "Component.h"
 #include "Clock.h"
 
-class Powersupply: public FullProcess {
+class Powersupply: public Component, Input, Output {
 
 public:
 	enum State {
@@ -18,7 +18,6 @@ public:
 
 	void setup();
 	void read();
-	void process();
 	void write();
 
 	void startMeasurement();
