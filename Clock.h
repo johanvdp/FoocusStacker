@@ -8,7 +8,7 @@
 /**
  * The clock provides time and must be updated on every loop.
  */
-class Clock: public Component, Input {
+class Clock: public Component, public Input {
 
 public:
 

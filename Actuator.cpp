@@ -1,8 +1,7 @@
 // The author disclaims copyright to this source code.
 
 #include "Actuator.h"
-
-#include "Domain.h"
+#include "Debug.h"
 
 #include <limits>
 
@@ -15,8 +14,8 @@
 #define PULSE D2
 #define ENABLE D8
 
-Actuator::Actuator(Configuration* c) {
-	configuration = c;
+Actuator::Actuator() {
+	configuration = new ActuatorConfiguration();
 	limitUp = false;
 	limitDown = false;
 	position = 0;
@@ -203,3 +202,44 @@ void Actuator::gotoPosition(long p) {
 	// Debug::getInstance()->info("Actuator::gotoPosition " + String(targetPosition));
 }
 
+Configuration* Actuator::getConfiguration() {
+	return configuration;
+}
+
+ActuatorConfiguration::ActuatorConfiguration() {
+}
+
+ActuatorConfiguration::~ActuatorConfiguration() {
+}
+
+int ActuatorConfiguration::getItemCount() {
+	return ACTUATOR_CONFIGURATION_ITEM_COUNT;
+}
+
+String* ActuatorConfiguration::getItemNames() {
+	return itemNames;
+}
+
+String* ActuatorConfiguration::getItemUnits() {
+	return itemUnits;
+}
+
+long* ActuatorConfiguration::getItemValues() {
+	return itemValues;
+}
+
+long* ActuatorConfiguration::getItemValuesMin() {
+	return itemValuesMin;
+}
+
+long* ActuatorConfiguration::getItemValuesMax() {
+	return itemValuesMax;
+}
+
+long ActuatorConfiguration::getActuatorDelayMs() {
+	return itemValues[ACTUATOR_CONFIGURATION_ITEM_ACTUATOR_DELAY_MS];
+}
+
+boolean ActuatorConfiguration::isActuatorHold() {
+	return itemValues[ACTUATOR_CONFIGURATION_ITEM_ACTUATOR_HOLD] != 0;
+}

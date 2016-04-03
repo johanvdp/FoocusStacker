@@ -2,9 +2,8 @@
 #include "StateRecord.h"
 
 StateRecord::StateRecord(Clock* clk, StateMachine* s, Buttons* b, Page* p,
-		Configuration* c, Recording* r) :
+		Recording* r) :
 		State(clk, s, b, p) {
-	configuration = c;
 	recording = r;
 }
 

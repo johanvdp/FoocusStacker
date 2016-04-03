@@ -6,7 +6,7 @@
 #include "Component.h"
 #include "Clock.h"
 
-class Buttons: public Component, Input {
+class Buttons: public Component, public Input {
 
 public:
 

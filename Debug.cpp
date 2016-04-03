@@ -4,11 +4,9 @@
 
 Debug* Debug::instance = NULL;
 
-Debug* Debug::createInstance(Clock* clk, Configuration* c) {
+Debug* Debug::createInstance(Clock* clk) {
 	if (!instance) {
-		instance = new Debug();
-		instance->clock = clk;
-		instance->configuration = c;
+		instance = new Debug(clk);
 	}
 	return instance;
 }
@@ -17,9 +15,9 @@ Debug* Debug::getInstance() {
 	return instance;
 }
 
-Debug::Debug() {
-	configuration = NULL;
-	clock = NULL;
+Debug::Debug(Clock* clk) {
+	configuration = new DebugConfiguration();
+	clock = clk;
 	previousTimestamp = 0;
 }
 
@@ -65,5 +63,51 @@ String Debug::fixedLength(unsigned long number) {
 	String padding = zeroTemplate.substring(0, padLength);
 	String result = padding + maxed;
 	return result;
+}
+
+Configuration* Debug::getConfiguration() {
+	return configuration;
+}
+
+DebugConfiguration::DebugConfiguration() {
+}
+
+DebugConfiguration::~DebugConfiguration() {
+}
+
+int DebugConfiguration::getItemCount() {
+	return DEBUG_CONFIGURATION_ITEM_COUNT;
+}
+
+String* DebugConfiguration::getItemNames() {
+	return itemNames;
+}
+
+String* DebugConfiguration::getItemUnits() {
+	return itemUnits;
+}
+
+long* DebugConfiguration::getItemValues() {
+	return itemValues;
+}
+
+long* DebugConfiguration::getItemValuesMin() {
+	return itemValuesMin;
+}
+
+long* DebugConfiguration::getItemValuesMax() {
+	return itemValuesMax;
+}
+
+boolean DebugConfiguration::isDebugErrorEnabled() {
+	return itemValues[DEBUG_CONFIGURATION_ITEM_DEBUG_ERRORS_ENABLED] != 0;
+}
+
+boolean DebugConfiguration::isDebugInfoEnabled() {
+	return itemValues[DEBUG_CONFIGURATION_ITEM_DEBUG_INFO_ENABLED] != 0;
+}
+
+boolean DebugConfiguration::isDebugDebugEnabled() {
+	return itemValues[DEBUG_CONFIGURATION_ITEM_DEBUG_DEBUG_ENABLED] != 0;
 }
 

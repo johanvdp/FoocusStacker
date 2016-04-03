@@ -7,7 +7,7 @@
 #include "../Component.h"
 #include "../Debug.h"
 
-class Page: public Component, Output {
+class Page: public Component, public Output {
 
 public:
 

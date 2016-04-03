@@ -6,7 +6,7 @@
 #include "Component.h"
 #include "Clock.h"
 
-class Powersupply: public Component, Input, Output {
+class Powersupply: public Component, public Input, public Output {
 
 public:
 	enum State {

@@ -12,7 +12,8 @@ class StateManual: public State {
 
 public:
 
-	StateManual(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a, Camera* cam);
+	StateManual(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a,
+			Camera* cam);
 	virtual ~StateManual();
 
 	void process();

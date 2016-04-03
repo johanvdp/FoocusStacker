@@ -19,10 +19,9 @@
 //
 // 002~000000: step number, optional minus sign and actuator position
 //
-RecordPage::RecordPage(LCD* l, Recording* r, Configuration* c) :
+RecordPage::RecordPage(LCD* l, Recording* r) :
 		Page(l) {
 	recording = r;
-	configuration = c;
 }
 
 // 10 characters
@@ -50,7 +49,7 @@ String RecordPage::toStepCurrent() {
 // 10 characters
 String RecordPage::toStepNext() {
 	int recordStepNext = recording->getStepIndex() + 1;
-	if (recordStepNext >= configuration->getStepCount()) {
+	if (recordStepNext >= recording->getStepCount()) {
 		return "          ";
 	} else {
 		String step = toZeroFixed(recordStepNext + 1, 3);

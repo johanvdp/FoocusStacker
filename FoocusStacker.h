@@ -64,7 +64,6 @@ private:
 	Actuator* actuator;
 	Camera* camera;
 	Powersupply* powersupply;
-	Configuration* configuration;
 	Recording* recording;
 	StateMachine* stateMachine;
 };

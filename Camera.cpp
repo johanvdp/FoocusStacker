@@ -1,17 +1,16 @@
 // The author disclaims copyright to this source code.
 
 #include "Camera.h"
-
-#include "Domain.h"
+#include "Debug.h"
 
 // camera control I/O
 #define CAMERA_FOCUS D7
 #define CAMERA_SHUTTER D6
 
-Camera::Camera(Clock* clk, Configuration* c) :
+Camera::Camera(Clock* clk) :
 		Output() {
 	clock = clk;
-	configuration = c;
+	configuration = new CameraConfiguration();
 	pressFocusTimestamp = 0;
 	pressShutterTimestamp = 0;
 	releaseBothTimestamp = 0;
@@ -89,4 +88,50 @@ void Camera::calculateWaitTimes() {
 
 boolean Camera::isReady() {
 	return state == READY && !clickRequested;
+}
+
+Configuration* Camera::getConfiguration() {
+	return configuration;
+}
+
+CameraConfiguration::CameraConfiguration() {
+}
+
+CameraConfiguration::~CameraConfiguration() {
+}
+
+int CameraConfiguration::getItemCount() {
+	return CAMERA_CONFIGURATION_ITEM_COUNT;
+}
+
+String* CameraConfiguration::getItemNames() {
+	return itemNames;
+}
+
+String* CameraConfiguration::getItemUnits() {
+	return itemUnits;
+}
+
+long* CameraConfiguration::getItemValues() {
+	return itemValues;
+}
+
+long* CameraConfiguration::getItemValuesMin() {
+	return itemValuesMin;
+}
+
+long* CameraConfiguration::getItemValuesMax() {
+	return itemValuesMax;
+}
+
+long CameraConfiguration::getClickCount() {
+	return itemValues[CAMERA_CONFIGURATION_ITEM_CLICK_COUNT];
+}
+
+long CameraConfiguration::getCameraShakeDelayMs() {
+	return itemValues[CAMERA_CONFIGURATION_ITEM_CAMERA_SHAKE_DELAY_MS];
+}
+
+long CameraConfiguration::getCameraSaveDurationMs() {
+	return itemValues[CAMERA_CONFIGURATION_ITEM_CAMERA_SAVE_DURATION_MS];
 }

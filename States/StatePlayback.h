@@ -14,12 +14,11 @@ class StatePlayback: public State {
 
 public:
 	enum PlaybackState {
-		WAIT_FOR_CAMERA,
-		WAIT_FOR_ACTUATOR
+		WAIT_FOR_CAMERA, WAIT_FOR_ACTUATOR
 	};
 
-	StatePlayback(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a, Camera* cam,
-			Configuration* c, Recording* r);
+	StatePlayback(Clock* clk, StateMachine* s, Buttons* b, Page* p, Actuator* a,
+			Camera* cam, Recording* r);
 	virtual ~StatePlayback();
 
 	void setup();
@@ -34,7 +33,6 @@ private:
 
 	Actuator* actuator;
 	Camera* camera;
-	Configuration* configuration;
 	Recording* recording;
 
 	PlaybackState playbackState;

@@ -11,7 +11,7 @@ class PlaybackPage: public RecordPage {
 
 public:
 
-	PlaybackPage(LCD* l, Recording* r, Configuration* c);
+	PlaybackPage(LCD* l, Recording* r);
 
 protected:
 

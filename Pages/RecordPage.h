@@ -5,13 +5,13 @@
 #include <Arduino.h>
 #include <LCD.h>
 #include "Page.h"
-#include "../Domain.h"
+#include "../Recording.h"
 
 class RecordPage: public Page {
 
 public:
 
-	RecordPage(LCD* l, Recording* r, Configuration* c);
+	RecordPage(LCD* l, Recording* r);
 
 protected:
 
@@ -21,7 +21,6 @@ protected:
 	String toStepNext();
 
 	Recording* recording;
-	Configuration* configuration;
 };
 
 #endif

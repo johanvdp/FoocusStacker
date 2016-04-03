@@ -11,8 +11,7 @@ class StateRecord: public State {
 
 public:
 
-	StateRecord(Clock* clk, StateMachine* s, Buttons* b, Page* p,
-			Configuration* c, Recording* r);
+	StateRecord(Clock* clk, StateMachine* s, Buttons* b, Page* p, Recording* r);
 	virtual ~StateRecord();
 
 	void process();
@@ -29,7 +28,6 @@ private:
 	void spinDown();
 	void spinUp();
 
-	Configuration* configuration;
 	Recording* recording;
 };
 

@@ -1,15 +1,16 @@
 // The author disclaims copyright to this source code.
-
 #ifndef CAMERA_H
 #define CAMERA_H
 
+// forward declaration
+class CameraConfiguration;
+
 #include <Arduino.h>
 #include "Component.h"
-#include "Domain.h"
+#include "Configuration.h"
 #include "Clock.h"
-#include "Debug.h"
 
-class Camera: public Component, Output {
+class Camera: public Component, public Output, public Configurable {
 
 public:
 	enum State {
@@ -20,7 +21,7 @@ public:
 		WAIT_BEFORE_FINISH,
 	};
 
-	Camera(Clock* clock, Configuration* configuration);
+	Camera(Clock* clock);
 	virtual ~Camera();
 
 	void setup();
@@ -29,12 +30,14 @@ public:
 	void click();
 	boolean isReady();
 
+	Configuration* getConfiguration();
+
 private:
 
 	void calculateWaitTimes();
 
 	Clock* clock;
-	Configuration* configuration;
+	CameraConfiguration* configuration;
 	State state;
 	int iteration;
 	boolean clickRequested;
@@ -42,6 +45,47 @@ private:
 	unsigned long pressShutterTimestamp;
 	unsigned long releaseBothTimestamp;
 	unsigned long finishTimestamp;
+};
+
+class CameraConfiguration: public AbstractConfiguration {
+
+public:
+	CameraConfiguration();
+	virtual ~CameraConfiguration();
+
+	long getClickCount();
+	long getCameraShakeDelayMs();
+	long getCameraSaveDurationMs();
+
+	virtual int getItemCount();
+	virtual String* getItemNames();
+	virtual String* getItemUnits();
+	virtual long* getItemValues();
+	virtual long* getItemValuesMin();
+	virtual long* getItemValuesMax();
+
+private:
+
+	static const int CAMERA_CONFIGURATION_ITEM_CLICK_COUNT = 0;
+	static const int CAMERA_CONFIGURATION_ITEM_CAMERA_SHAKE_DELAY_MS = 1;
+	static const int CAMERA_CONFIGURATION_ITEM_CAMERA_SAVE_DURATION_MS = 2;
+	static const int CAMERA_CONFIGURATION_ITEM_COUNT = 3;
+
+	String itemNames[CAMERA_CONFIGURATION_ITEM_COUNT] = {
+	//
+			"click count", "camera deshake", "camera busy" };
+	String itemUnits[CAMERA_CONFIGURATION_ITEM_COUNT] = {
+	//
+			"", "[ms]", "[ms]" };
+	long itemValues[CAMERA_CONFIGURATION_ITEM_COUNT] = {
+	//
+			1, 500, 1000 };
+	long itemValuesMin[CAMERA_CONFIGURATION_ITEM_COUNT] = {
+	//
+			1, 1, 1 };
+	long itemValuesMax[CAMERA_CONFIGURATION_ITEM_COUNT] = {
+	//
+			100, 5000, 5000 };
 };
 
 #endif

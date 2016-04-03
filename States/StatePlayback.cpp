@@ -2,11 +2,10 @@
 #include "StatePlayback.h"
 
 StatePlayback::StatePlayback(Clock* clk, StateMachine* s, Buttons* b, Page* p,
-		Actuator* a, Camera* cam, Configuration* c, Recording* r) :
+		Actuator* a, Camera* cam, Recording* r) :
 		State(clk, s, b, p) {
 	actuator = a;
 	camera = cam;
-	configuration = c;
 	recording = r;
 	playbackState = WAIT_FOR_CAMERA;
 }
@@ -21,8 +20,8 @@ void StatePlayback::setup() {
 	initialPosition = actuator->getPosition();
 
 	// read configuration once
-	stepIntervalMs = configuration->getStepIntervalMs();
-	iterations = configuration->getIterations();
+	stepIntervalMs = recording->getStepIntervalMs();
+	iterations = recording->getIterations();
 
 	// start playback at beginning of record
 	recording->resetStepIndex();

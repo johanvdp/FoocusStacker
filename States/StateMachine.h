@@ -15,6 +15,7 @@
 #include "../Pages/InformationPage.h"
 #include "../Actuator.h"
 #include "../Domain.h"
+#include "../Recording.h"
 #include "State.h"
 #include "StateStopped.h"
 #include "StateHoming.h"
@@ -26,11 +27,14 @@
 #include "../Statistics.h"
 #include "../Powersupply.h"
 
-class StateMachine: public Component, Input, Output, Process {
+class StateMachine: public Component,
+		public Input,
+		public Output,
+		public Process {
 
 public:
 
-	StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Camera* cam, Configuration* c,
+	StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a, Camera* cam,
 			Recording* r, Information* i, Powersupply* psu);
 	virtual ~StateMachine();
 

@@ -14,8 +14,8 @@
 //
 // 002~000000: step number, optional minus sign and actuator position
 //
-PlaybackPage::PlaybackPage(LCD* l, Recording* r, Configuration* c) :
-		RecordPage(l, r, c) {
+PlaybackPage::PlaybackPage(LCD* l, Recording* r) :
+		RecordPage(l, r) {
 }
 
 void PlaybackPage::display() {

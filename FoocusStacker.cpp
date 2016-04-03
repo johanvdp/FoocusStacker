@@ -18,14 +18,13 @@ FoocusStacker::FoocusStacker() {
 	clock = new Clock();
 	information = new Information();
 	buttons = new Buttons(clock);
-	configuration = new Configuration();
-	actuator = new Actuator(configuration);
-	debug = Debug::createInstance(clock, configuration);
-	recording = new Recording(configuration);
-	camera = new Camera(clock, configuration);
+	actuator = new Actuator();
+	debug = Debug::createInstance(clock);
+	recording = new Recording();
+	camera = new Camera(clock);
 	powersupply = new Powersupply(clock);
 	stateMachine = new StateMachine(clock, buttons, lcd, actuator, camera,
-			configuration, recording, information, powersupply);
+			recording, information, powersupply);
 }
 
 /**
@@ -49,7 +48,6 @@ void FoocusStacker::setup() {
 	clock->setup();
 	information->setup();
 	buttons->setup();
-	configuration->setup();
 	actuator->setup();
 	powersupply->setup();
 	recording->setup();
