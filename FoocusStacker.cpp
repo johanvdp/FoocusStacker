@@ -1,11 +1,6 @@
 // The author disclaims copyright to this source code.
 #include "FoocusStacker.h"
 
-#define SDA D3
-#define SCL D4
-
-#define I2C_LCD 0x27
-
 /**
  * Construct the application by constructing all its components.
  */
@@ -13,7 +8,7 @@ FoocusStacker::FoocusStacker() {
 
 	// 0x27 is the I2C bus address for an unmodified module
 	//                 lcd(addr,en,rw,rs,d4,d5,d6,d7)
-	lcd = new LiquidCrystal_I2C(0x27, 2, 1, 0, 4, 5, 6, 7);
+	lcd = new LiquidCrystal_I2C(I2C_LCD, 2, 1, 0, 4, 5, 6, 7);
 
 	clock = new Clock();
 	information = new Information();

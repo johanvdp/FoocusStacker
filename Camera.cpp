@@ -3,10 +3,6 @@
 #include "Camera.h"
 #include "Debug.h"
 
-// camera control I/O
-#define CAMERA_FOCUS D7
-#define CAMERA_SHUTTER D6
-
 Camera::Camera(Clock* clk) :
 		Output() {
 	clock = clk;

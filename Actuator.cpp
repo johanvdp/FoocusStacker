@@ -5,15 +5,6 @@
 
 #include <limits>
 
-// limit switch I/O
-#define LIMIT_UP D0
-#define LIMIT_DOWN D5
-
-// stepper motor driver I/O
-#define DIRECTION D1
-#define PULSE D2
-#define ENABLE D8
-
 Actuator::Actuator() {
 	configuration = new ActuatorConfiguration();
 	limitUp = false;

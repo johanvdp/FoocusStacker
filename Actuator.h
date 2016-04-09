@@ -40,6 +40,15 @@ public:
 
 private:
 
+	// limit switch I/O
+	static const uint8_t LIMIT_UP = D0;
+	static const uint8_t LIMIT_DOWN = D5;
+
+	// stepper motor driver I/O
+	static const uint8_t DIRECTION = D1;
+	static const uint8_t PULSE = D2;
+	static const uint8_t ENABLE = D8;
+
 	ActuatorConfiguration* configuration;
 
 	void actuatorPulse();

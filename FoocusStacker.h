@@ -56,6 +56,13 @@ public:
 
 private:
 
+	// I2C wires
+	const static uint8_t SDA = D3;
+	const static uint8_t SCL = D4;
+
+	// I2C address
+	const static int I2C_LCD = 0x27;
+
 	Debug* debug;
 	LiquidCrystal_I2C* lcd;
 	Clock* clock;

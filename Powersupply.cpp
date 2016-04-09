@@ -6,56 +6,6 @@
 
 #include "Debug.h"
 
-#define I2C_INA219              (0x40)
-
-#define REGISTER_CONFIG         (0x00)
-#define REGISTER_SHUNT_VOLTAGE  (0x01)
-#define REGISTER_BUS_VOLTAGE    (0x02)
-#define REGISTER_POWER          (0x03)
-#define REGISTER_CURRENT        (0x04)
-#define REGISTER_CALIBRATION    (0x05)
-
-#define RESET                 (0x8000)
-
-#define BUS_RANGE_MASK        (0x2000)
-#define BUS_RANGE_16V         (0x0000)
-#define BUS_RANGE_32V         (0x2000)
-
-#define SHUNT_RANGE_MASK      (0x1800)
-#define SHUNT_RANGE_40MV      (0x0000)
-#define SHUNT_RANGE_80MV      (0x0800)
-#define SHUNT_RANGE_160MV     (0x1000)
-#define SHUNT_RANGE_320MV     (0x1800)
-
-#define BUS_RESOLUTION_MASK   (0x0780)
-#define BUS_RESOLUTION_9BIT   (0x0080)
-#define BUS_RESOLUTION_10BIT  (0x0100)
-#define BUS_RESOLUTION_11BIT  (0x0200)
-#define BUS_RESOLUTION_12BIT  (0x0400)
-
-#define SHUNT_RESOLUTION_MASK            (0x0078)
-#define SHUNT_RESOLUTION_9BIT_84US       (0x0000)
-#define SHUNT_RESOLUTION_10BIT_148US     (0x0008)
-#define SHUNT_RESOLUTION_11BIT_276US     (0x0010)
-#define SHUNT_RESOLUTION_12BIT_532US     (0x0018)
-#define SHUNT_RESOLUTION_12BITx2_1060US  (0x0048)
-#define SHUNT_RESOLUTION_12BITx4_2130US  (0x0050)
-#define SHUNT_RESOLUTION_12BITx8_4260US  (0x0058)
-#define SHUNT_RESOLUTION_12BITx16_8510US (0x0060)
-#define SHUNT_RESOLUTION_12BITx32_17MS   (0x0068)
-#define SHUNT_RESOLUTION_12BITx64_34MS   (0x0070)
-#define SHUNT_RESOLUTION_12BITx128_69MS  (0x0078)
-
-#define MODE_MASK             (0x0007)
-#define MODE_POWERDOWN        (0x0000)
-#define MODE_SHUNT_TRIGGERED  (0x0001)
-#define MODE_BUS_TRIGGERED    (0x0002)
-#define MODE_BOTH_TRIGGERED   (0x0003)
-#define MODE_ADCOFF           (0x0004)
-#define MODE_SHUNT_CONTINUOUS (0x0005)
-#define MODE_BUS_CONTINUOUS   (0x0006)
-#define MODE_BOTH_CONTINUOUS  (0x0007)
-
 Powersupply::Powersupply(Clock *clk) {
 	// INA219 module configuration
 	// default: 100 mOhm
@@ -207,7 +157,7 @@ uint16_t Powersupply::readRegister(uint8_t reg) {
 	Wire.write(reg);
 	Wire.endTransmission();
 	delay(getConversionTimeMillis());
-	Wire.requestFrom(I2C_INA219, 2);
+	Wire.requestFrom(I2C_INA219, (uint8_t)2);
 	uint16_t msb = Wire.read();
 	uint16_t lsb = Wire.read();
 	uint16_t value = msb << 8 | lsb;

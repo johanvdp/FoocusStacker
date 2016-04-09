@@ -33,6 +33,9 @@ public:
 	Configuration* getConfiguration();
 
 private:
+	// camera control I/O
+	static const uint8_t CAMERA_FOCUS = D7;
+	static const uint8_t CAMERA_SHUTTER = D6;
 
 	void calculateWaitTimes();
 
