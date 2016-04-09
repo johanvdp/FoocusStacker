@@ -21,7 +21,7 @@ long AbstractConfiguration::getCurrentItemValue() {
 }
 
 void AbstractConfiguration::changeCurrentItemValue(long deltaValue) {
-	long newValue = getItemValues()[itemIndex] += deltaValue;
+	long newValue = getItemValues()[itemIndex] + deltaValue;
 	if (newValue < getItemValuesMin()[itemIndex]) {
 		newValue = getItemValuesMin()[itemIndex];
 	} else if (newValue > getItemValuesMax()[itemIndex]) {

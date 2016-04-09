@@ -75,28 +75,36 @@ DebugConfiguration::DebugConfiguration() {
 DebugConfiguration::~DebugConfiguration() {
 }
 
-int DebugConfiguration::getItemCount() {
+const int DebugConfiguration::getItemCount() {
 	return ITEM_COUNT;
 }
 
-String* DebugConfiguration::getItemNames() {
-	return itemNames;
+const String* DebugConfiguration::getItemNames() {
+	static const String ITEM_NAMES[ITEM_COUNT] = //
+			{ "debug errors", "debug info", "debug debug" };
+	return ITEM_NAMES;
 }
 
-String* DebugConfiguration::getItemUnits() {
-	return itemUnits;
+const String* DebugConfiguration::getItemUnits() {
+	static const String ITEM_UNITS[ITEM_COUNT] = //
+			{ "0=no 1=yes", "0=no 1=yes", "0=no 1=yes" };
+	return ITEM_UNITS;
 }
 
 long* DebugConfiguration::getItemValues() {
 	return itemValues;
 }
 
-long* DebugConfiguration::getItemValuesMin() {
-	return itemValuesMin;
+const long* DebugConfiguration::getItemValuesMin() {
+	static const long ITEM_VALUES_MIN[ITEM_COUNT] = //
+			{ 0, 0, 0 };
+	return ITEM_VALUES_MIN;
 }
 
-long* DebugConfiguration::getItemValuesMax() {
-	return itemValuesMax;
+const long* DebugConfiguration::getItemValuesMax() {
+	static const long ITEM_VALUES_MAX[ITEM_COUNT] = //
+			{ 1, 1, 1 };
+	return ITEM_VALUES_MAX;
 }
 
 boolean DebugConfiguration::isDebugErrorEnabled() {

@@ -68,12 +68,12 @@ public:
 	virtual long getActuatorDelayMs();
 	virtual boolean isActuatorHold();
 
-	virtual int getItemCount();
-	virtual String* getItemNames();
-	virtual String* getItemUnits();
+	virtual const int getItemCount();
+	virtual const String* getItemNames();
+	virtual const String* getItemUnits();
 	virtual long* getItemValues();
-	virtual long* getItemValuesMin();
-	virtual long* getItemValuesMax();
+	virtual const long* getItemValuesMin();
+	virtual const long* getItemValuesMax();
 
 private:
 
@@ -81,11 +81,7 @@ private:
 	static const int ITEM_ACTUATOR_HOLD = 1;
 	static const int ITEM_COUNT = 2;
 
-	String itemNames[ITEM_COUNT] = { "actuator delay", "actuator hold" };
-	String itemUnits[ITEM_COUNT] = { "[us]", "0=no 1=yes" };
 	long itemValues[ITEM_COUNT] = { 10, 0 };
-	long itemValuesMin[ITEM_COUNT] = { 1, 0 };
-	long itemValuesMax[ITEM_COUNT] = { 1000, 1 };
 };
 
 #endif

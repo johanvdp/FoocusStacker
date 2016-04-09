@@ -86,28 +86,36 @@ RecordingConfiguration::RecordingConfiguration() {
 RecordingConfiguration::~RecordingConfiguration() {
 }
 
-int RecordingConfiguration::getItemCount() {
+const int RecordingConfiguration::getItemCount() {
 	return ITEM_COUNT;
 }
 
-String* RecordingConfiguration::getItemNames() {
-	return itemNames;
+const String* RecordingConfiguration::getItemNames() {
+	static const String ITEM_NAMES[ITEM_COUNT] = //
+			{ "step count", "step interval", "iterations" };
+	return ITEM_NAMES;
 }
 
-String* RecordingConfiguration::getItemUnits() {
-	return itemUnits;
+const String* RecordingConfiguration::getItemUnits() {
+	static const String ITEM_UNITS[ITEM_COUNT] = //
+			{ "", "[s]", "" };
+	return ITEM_UNITS;
 }
 
 long* RecordingConfiguration::getItemValues() {
 	return itemValues;
 }
 
-long* RecordingConfiguration::getItemValuesMin() {
-	return itemValuesMin;
+const long* RecordingConfiguration::getItemValuesMin() {
+	static const long ITEM_VALUES_MIN[ITEM_COUNT] = //
+			{ 1, 0, 1 };
+	return ITEM_VALUES_MIN;
 }
 
-long* RecordingConfiguration::getItemValuesMax() {
-	return itemValuesMax;
+const long* RecordingConfiguration::getItemValuesMax() {
+	static const long ITEM_VALUES_MAX[ITEM_COUNT] = //
+			{ Recording::RECORD_STEP_COUNT, 3600, 1000 };
+	return ITEM_VALUES_MAX;
 }
 
 long RecordingConfiguration::getStepCount() {

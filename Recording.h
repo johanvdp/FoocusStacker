@@ -58,12 +58,12 @@ public:
 	long getStepIntervalMs();
 	long getIterations();
 
-	virtual int getItemCount();
-	virtual String* getItemNames();
-	virtual String* getItemUnits();
+	virtual const int getItemCount();
+	virtual const String* getItemNames();
+	virtual const String* getItemUnits();
 	virtual long* getItemValues();
-	virtual long* getItemValuesMin();
-	virtual long* getItemValuesMax();
+	virtual const long* getItemValuesMin();
+	virtual const long* getItemValuesMax();
 
 private:
 
@@ -72,13 +72,7 @@ private:
 	static const int ITEM_ITERATIONS = 2;
 	static const int ITEM_COUNT = 3;
 
-	String itemNames[ITEM_COUNT] =
-			{ "step count", "step interval", "iterations" };
-	String itemUnits[ITEM_COUNT] = { "", "[s]", "" };
 	long itemValues[ITEM_COUNT] = { 1, 0, 5 };
-	long itemValuesMin[ITEM_COUNT] = { 1, 0, 1 };
-	long itemValuesMax[ITEM_COUNT] =
-			{ Recording::RECORD_STEP_COUNT, 3600, 1000 };
 };
 
 #endif

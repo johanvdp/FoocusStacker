@@ -43,12 +43,12 @@ public:
 	void lastItemIndex();
 	void firstItemIndex();
 
-	virtual int getItemCount() = 0;
-	virtual String* getItemNames() = 0;
-	virtual String* getItemUnits() = 0;
+	virtual const int getItemCount() = 0;
+	virtual const String* getItemNames() = 0;
+	virtual const String* getItemUnits() = 0;
 	virtual long* getItemValues() = 0;
-	virtual long* getItemValuesMin() = 0;
-	virtual long* getItemValuesMax() = 0;
+	virtual const long* getItemValuesMin() = 0;
+	virtual const long* getItemValuesMax() = 0;
 
 private:
 

@@ -50,12 +50,12 @@ public:
 
 protected:
 
-	virtual int getItemCount();
-	virtual String* getItemNames();
-	virtual String* getItemUnits();
+	virtual const int getItemCount();
+	virtual const String* getItemNames();
+	virtual const String* getItemUnits();
 	virtual long* getItemValues();
-	virtual long* getItemValuesMin();
-	virtual long* getItemValuesMax();
+	virtual const long* getItemValuesMin();
+	virtual const long* getItemValuesMax();
 
 private:
 
@@ -64,12 +64,7 @@ private:
 	static const int ITEM_DEBUG_DEBUG_ENABLED = 2;
 	static const int ITEM_COUNT = 3;
 
-	String itemNames[ITEM_COUNT] =
-			{ "debug errors", "debug info", "debug debug" };
-	String itemUnits[ITEM_COUNT] = { "0=no 1=yes", "0=no 1=yes", "0=no 1=yes" };
 	long itemValues[ITEM_COUNT] = { 1, 1, 0 };
-	long itemValuesMin[ITEM_COUNT] = { 0, 0, 0 };
-	long itemValuesMax[ITEM_COUNT] = { 1, 1, 1 };
 };
 
 #endif

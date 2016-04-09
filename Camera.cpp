@@ -100,28 +100,36 @@ CameraConfiguration::CameraConfiguration() {
 CameraConfiguration::~CameraConfiguration() {
 }
 
-int CameraConfiguration::getItemCount() {
+const int CameraConfiguration::getItemCount() {
 	return ITEM_COUNT;
 }
 
-String* CameraConfiguration::getItemNames() {
-	return itemNames;
+const String* CameraConfiguration::getItemNames() {
+	static const String ITEM_NAMES[ITEM_COUNT] = //
+			{ "click count", "camera deshake", "camera busy" };
+	return ITEM_NAMES;
 }
 
-String* CameraConfiguration::getItemUnits() {
-	return itemUnits;
+const String* CameraConfiguration::getItemUnits() {
+	static const String ITEM_UNITS[ITEM_COUNT] = //
+			{ "", "[ms]", "[ms]" };
+	return ITEM_UNITS;
 }
 
 long* CameraConfiguration::getItemValues() {
 	return itemValues;
 }
 
-long* CameraConfiguration::getItemValuesMin() {
-	return itemValuesMin;
+const long* CameraConfiguration::getItemValuesMin() {
+	static const long ITEM_VALUES_MIN[ITEM_COUNT] = //
+			{ 1, 1, 1 };
+	return ITEM_VALUES_MIN;
 }
 
-long* CameraConfiguration::getItemValuesMax() {
-	return itemValuesMax;
+const long* CameraConfiguration::getItemValuesMax() {
+	static const long ITEM_VALUES_MAX[ITEM_COUNT] = //
+			{ 100, 5000, 5000 };
+	return ITEM_VALUES_MAX;
 }
 
 long CameraConfiguration::getClickCount() {

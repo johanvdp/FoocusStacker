@@ -17,11 +17,16 @@ void Information::setup() {
 }
 
 String Information::getCurrentItemName() {
-	return itemNames[itemIndex];
+	static const String ITEM_NAMES[ITEM_COUNT] = //
+			{ "voltage", "current", "power", "statistics average",
+					"statistics minimum", "statistics maximum" };
+	return ITEM_NAMES[itemIndex];
 }
 
 String Information::getCurrentItemUnit() {
-	return itemUnits[itemIndex];
+	static const String ITEM_UNITS[ITEM_COUNT] = //
+			{ "[mV]", "[mA]", "[mW]", "[ms]", "[ms]", "[ms]" };
+	return ITEM_UNITS[itemIndex];
 }
 
 long Information::getCurrentItemValue() {
@@ -29,31 +34,31 @@ long Information::getCurrentItemValue() {
 }
 
 void Information::setSupplyVoltageMilliV(unsigned long value) {
-	itemValues[INFO_ITEM_SUPPLY_VOLTAGE_MV] = value;
+	itemValues[ITEM_SUPPLY_VOLTAGE_MV] = value;
 }
 
 void Information::setSupplyCurrentMilliA(unsigned long value) {
-	itemValues[INFO_ITEM_SUPPLY_CURRENT_MA] = value;
+	itemValues[ITEM_SUPPLY_CURRENT_MA] = value;
 }
 
 void Information::setSupplyPowerMilliW(unsigned long value) {
-	itemValues[INFO_ITEM_SUPPLY_POWER_MW] = value;
+	itemValues[ITEM_SUPPLY_POWER_MW] = value;
 }
 
 void Information::setStatisticsAverageMillis(unsigned long value) {
-	itemValues[INFO_ITEM_STATISTICS_AVERAGE_MS] = value;
+	itemValues[ITEM_STATISTICS_AVERAGE_MS] = value;
 }
 
 void Information::setStatisticsMinimumMillis(unsigned long value) {
-	itemValues[INFO_ITEM_STATISTICS_MINIMUM_MS] = value;
+	itemValues[ITEM_STATISTICS_MINIMUM_MS] = value;
 }
 
 void Information::setStatisticsMaximumMillis(unsigned long value) {
-	itemValues[INFO_ITEM_STATISTICS_MAXIMUM_MS] = value;
+	itemValues[ITEM_STATISTICS_MAXIMUM_MS] = value;
 }
 
 void Information::nextItemIndex() {
-	if (itemIndex < (INFO_ITEM_COUNT - 1)) {
+	if (itemIndex < (ITEM_COUNT - 1)) {
 		itemIndex++;
 	} else {
 		itemIndex = 0;

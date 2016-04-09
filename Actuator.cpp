@@ -212,28 +212,36 @@ ActuatorConfiguration::ActuatorConfiguration() {
 ActuatorConfiguration::~ActuatorConfiguration() {
 }
 
-int ActuatorConfiguration::getItemCount() {
+const int ActuatorConfiguration::getItemCount() {
 	return ITEM_COUNT;
 }
 
-String* ActuatorConfiguration::getItemNames() {
-	return itemNames;
+const String* ActuatorConfiguration::getItemNames() {
+	static const String ITEM_NAMES[ITEM_COUNT] = //
+			{ "actuator delay", "actuator hold" };
+	return ITEM_NAMES;
 }
 
-String* ActuatorConfiguration::getItemUnits() {
-	return itemUnits;
+const String* ActuatorConfiguration::getItemUnits() {
+	static const String ITEM_UNITS[ITEM_COUNT] = //
+			{ "[us]", "0=no 1=yes" };
+	return ITEM_UNITS;
 }
 
 long* ActuatorConfiguration::getItemValues() {
 	return itemValues;
 }
 
-long* ActuatorConfiguration::getItemValuesMin() {
-	return itemValuesMin;
+const long* ActuatorConfiguration::getItemValuesMin() {
+	static const long ITEM_VALUES_MIN[ITEM_COUNT] = //
+			{ 1, 0 };
+	return ITEM_VALUES_MIN;
 }
 
-long* ActuatorConfiguration::getItemValuesMax() {
-	return itemValuesMax;
+const long* ActuatorConfiguration::getItemValuesMax() {
+	static const long ITEM_VALUES_MAX[ITEM_COUNT] = //
+			{ 1000, 1 };
+	return ITEM_VALUES_MAX;
 }
 
 long ActuatorConfiguration::getActuatorDelayMs() {
