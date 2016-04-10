@@ -10,13 +10,14 @@
  * <code>
  * &nbsp;&nbsp;012345678901234567890<br>
  * 1&nbsp;STOP&nbsp;&nbsp;PLAYBACK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
- * 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;002~000000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0002/0005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
  * 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;003~000000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
  * 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;004~000000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
  * </code>
  *
  * - stop: stop playback
  *
+ * - 0002/0005: progress, iteration of iterations
  * - 002~000000: step number, optional minus sign and actuator position
  */
 PlaybackPage::PlaybackPage(LCD* l, Recording* r) :
