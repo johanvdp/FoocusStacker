@@ -1,17 +1,19 @@
 // The author disclaims copyright to this source code.
 #include "HomingPage.h"
 
-// =========================================================
-// PAGE HOMING
-// =========================================================
-//   012345678901234567890
-// 1 STOP  HOMING
-// 2
-// 3
-// 4
-//
-// stop: stop homing
-//
+/**
+ * PAGE HOMING
+ *
+ * <code>
+ * &nbsp;&nbsp;012345678901234567890<br>
+ * 1&nbsp;STOP&nbsp;&nbsp;HOMING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * </code>
+ *
+ * - stop: stop homing
+ */
 HomingPage::HomingPage(LCD* l, Actuator* a) :
 		Page(l) {
 	actuator = a;

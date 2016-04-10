@@ -1,25 +1,27 @@
 // The author disclaims copyright to this source code.
 #include "ConfigurationPage.h"
 
-// =========================================================
-// PAGE CONFIGURE
-// =========================================================
-//   012345678901234567890
-// 1 STOP  CONFIGURE
-// 2 PREV >item name
-// 3 NEXT  item value
-// 4 DOWN  item unit    UP
-//
-// stop: stop configure
-// prev: select previous item
-// next: select next item
-// down: change item value down
-// up  : change item value up
-//
-// item name: 14 characters
-// item value: 14 characters
-// item unit: 12 characters
-//
+/**
+ * PAGE CONFIGURE
+ *
+ * <code>
+ * &nbsp;&nbsp;012345678901234567890<br>
+ * 1&nbsp;STOP&nbsp;&nbsp;CONFIGURE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 2&nbsp;PREV&nbsp;>item name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 3&nbsp;NEXT&nbsp;&nbsp;item&nbsp;value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 4&nbsp;DOWN&nbsp;&nbsp;item&nbsp;unit&nbsp;&nbsp;&nbsp;&nbsp;UP<br>
+ * </code>
+ *
+ * - stop: stop configure
+ * - prev: select previous item
+ * - next: select next item
+ * - down: change item value down
+ * - up  : change item value up
+ *
+ * - item name: 14 characters
+ * - item value: 14 characters
+ * - item unit: 12 characters
+ */
 ConfigurationPage::ConfigurationPage(LCD* l, Configuration* c) :
 		Page(l) {
 	configuration = c;

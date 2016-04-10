@@ -1,22 +1,24 @@
 // The author disclaims copyright to this source code.
 #include "InformationPage.h"
 
-// =========================================================
-// PAGE INFO
-// =========================================================
-//   012345678901234567890
-// 1 STOP  INFO       NEXT
-// 2 item name
-// 3 item value
-// 4 item unit
-//
-// stop: stop info
-// next: next item
-//
-// item name: 20 characters
-// item value: 20 characters
-// item unit: 20 characters
-//
+/**
+ * PAGE INFO
+ *
+ * <code>
+ * &nbsp;&nbsp;012345678901234567890<br>
+ * 1&nbsp;STOP&nbsp;&nbsp;INFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NEXT<br>
+ * 2&nbsp;item&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 3&nbsp;item&nbsp;value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * 4&nbsp;item&nbsp;unit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ * </code>
+ *
+ * - stop: stop info
+ * - next: next item
+ *
+ * - item name: 20 characters
+ * - item value: 20 characters
+ * - item unit: 20 characters
+ */
 InformationPage::InformationPage(LCD* l, Information* i) :
 		Page(l) {
 	info = i;

@@ -1,26 +1,28 @@
 // The author disclaims copyright to this source code.
 #include "ManualPage.h"
 
-// =========================================================
-// PAGE MANUAL
-// =========================================================
-//   012345678901234567890
-// 1 STOP  MANUAL    CLICK
-// 2 <<<               >>>
-// 3 <<       ~000000   >>
-// 4 <                   >
-//
-// stop : stop manual control
-// <<<  : move down faster
-// <<   : move down fast
-// <    : move down
-// >    : move up
-// >>   : move up fast
-// >>>  : move up faster
-// click: camera click
-//
-// 000000: optional minus sign and actuator position
-//
+/**
+ * PAGE MANUAL
+ *
+ * <code>
+ * &nbsp;&nbsp;012345678901234567890<br>
+ * 1&nbsp;STOP&nbsp;&nbsp;MANUAL&nbsp;&nbsp;&nbsp;&nbsp;CLICK<br>
+ * 2&nbsp;&lt;&lt;&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;<br>
+ * 3&nbsp;&lt;&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~000000&nbsp;&nbsp;&nbsp;&gt;&gt;<br>
+ * 4&nbsp;&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;<br>
+ * </code>
+ *
+ * - stop : stop manual control
+ * - &lt;&lt;&lt;  : move down faster
+ * - &lt;&lt;   : move down fast
+ * - &lt;    : move down
+ * - &gt;    : move up
+ * - &gt;&gt;   : move up fast
+ * - &gt;&gt;&gt;  : move up faster
+ * - click: camera click
+ *
+ * - 000000: optional minus sign and actuator position
+ */
 ManualPage::ManualPage(LCD* l, Actuator* a) :
 		Page(l) {
 	actuator = a;
