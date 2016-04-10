@@ -144,12 +144,12 @@ void Actuator::stop() {
 
 void Actuator::actuatorUp() {
 	digitalWrite(DIRECTION, LOW);
-	delayMicroseconds(configuration->getActuatorDelayMs());
+	delayMicroseconds(configuration->getActuatorDelayUs());
 }
 
 void Actuator::actuatorDown() {
 	digitalWrite(DIRECTION, HIGH);
-	delayMicroseconds(configuration->getActuatorDelayMs());
+	delayMicroseconds(configuration->getActuatorDelayUs());
 }
 
 void Actuator::actuatorPulse() {
@@ -235,8 +235,8 @@ const long* ActuatorConfiguration::getItemValuesMax() {
 	return ITEM_VALUES_MAX;
 }
 
-long ActuatorConfiguration::getActuatorDelayMs() {
-	return itemValues[ITEM_ACTUATOR_DELAY_MS];
+long ActuatorConfiguration::getActuatorDelayUs() {
+	return itemValues[ITEM_ACTUATOR_DELAY_US];
 }
 
 boolean ActuatorConfiguration::isActuatorHold() {

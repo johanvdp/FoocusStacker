@@ -74,7 +74,7 @@ public:
 	ActuatorConfiguration();
 	virtual ~ActuatorConfiguration();
 
-	virtual long getActuatorDelayMs();
+	virtual long getActuatorDelayUs();
 	virtual boolean isActuatorHold();
 
 	virtual const int getItemCount();
@@ -86,7 +86,7 @@ public:
 
 private:
 
-	static const int ITEM_ACTUATOR_DELAY_MS = 0;
+	static const int ITEM_ACTUATOR_DELAY_US = 0;
 	static const int ITEM_ACTUATOR_HOLD = 1;
 	static const int ITEM_COUNT = 2;
 
