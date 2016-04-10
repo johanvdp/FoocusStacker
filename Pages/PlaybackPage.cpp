@@ -1,6 +1,9 @@
 // The author disclaims copyright to this source code.
 #include "PlaybackPage.h"
 
+// included in implementation to avoid circular reference
+#include "../States/StatePlayback.h"
+
 /**
  * PAGE PLAYBACK
  *
@@ -18,6 +21,18 @@
  */
 PlaybackPage::PlaybackPage(LCD* l, Recording* r) :
 		RecordPage(l, r) {
+	statePlayback = NULL;
+}
+
+void PlaybackPage::setStatePlayback(StatePlayback* p) {
+	statePlayback = p;
+}
+
+// 10 characters
+String PlaybackPage::toProgress() {
+	String iteration = toZeroFixed(statePlayback->getIteration(), 4);
+	String iterations = toZeroFixed(recording->getIterations(), 4);
+	return " " + iteration + "/" + iterations;
 }
 
 void PlaybackPage::display() {
@@ -25,7 +40,7 @@ void PlaybackPage::display() {
 	lcd->setCursor(0, 0);
 	lcd->print("STOP  PLAYBACK      ");
 	lcd->setCursor(0, 1);
-	lcd->print("      " + toStepPrevious() + "    ");
+	lcd->print("      " + toProgress() + "    ");
 	lcd->setCursor(0, 2);
 	lcd->print("     >" + toStepCurrent() + "    ");
 	lcd->setCursor(0, 3);

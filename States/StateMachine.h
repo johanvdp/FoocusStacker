@@ -26,6 +26,7 @@
 #include "StateConfiguration.h"
 #include "../Statistics.h"
 #include "../Powersupply.h"
+#include "../Camera.h"
 
 class StateMachine: public Component,
 		public Input,

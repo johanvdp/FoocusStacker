@@ -21,7 +21,8 @@ void StatePlayback::setup() {
 
 	// read configuration once
 	stepIntervalMs = recording->getStepIntervalMs();
-	iterations = recording->getIterations();
+	// count back number of iterations
+	iteration = recording->getIterations();
 
 	// start playback at beginning of record
 	recording->resetStepIndex();
@@ -56,11 +57,11 @@ void StatePlayback::process() {
 				playbackState = WAIT_FOR_ACTUATOR;
 			} else {
 				// end of steps
-				if (iterations > 1) {
+				if (iteration > 1) {
 					// next iteration
 					Debug::getInstance()->info(
 							"StatePlayback::process next iteration");
-					iterations--;
+					iteration--;
 					// start playback at beginning of record
 					recording->resetStepIndex();
 					firstStep = false;
@@ -71,20 +72,25 @@ void StatePlayback::process() {
 				} else {
 					// return to initial position
 					Debug::getInstance()->info("StatePlayback::process return");
-					iterations--;
+					iteration--;
 					actuator->gotoPosition(initialPosition);
 					playbackState = WAIT_FOR_ACTUATOR;
 				}
 			}
+			page->update();
 		}
 	} else if (playbackState == WAIT_FOR_ACTUATOR && actuator->isStopped()) {
-		if (iterations > 0) {
+		if (iteration > 0) {
 			click();
 			playbackState = WAIT_FOR_CAMERA;
 		} else {
 			stateMachine->stateGotoStopped();
 		}
 	}
+}
+
+int StatePlayback::getIteration() {
+	return iteration;
 }
 
 void StatePlayback::click() {

@@ -29,6 +29,7 @@ StateMachine::StateMachine(Clock* clk, Buttons* b, LCD* l, Actuator* a,
 	manual = new StateManual(clk, this, b, manualPage, a, cam);
 	record = new StateRecord(clk, this, b, recordPage, r);
 	playback = new StatePlayback(clk, this, b, playbackPage, a, cam, r);
+	playbackPage->setStatePlayback(playback);
 	configuration = new StateConfiguration(clk, this, b, configurationPage,
 			compositeConfiguration);
 	info = new StateInfo(clk, this, b, informationPage, i, psu);

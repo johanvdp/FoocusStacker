@@ -24,6 +24,8 @@ public:
 	void setup();
 	void process();
 
+	int getIteration();
+
 private:
 
 	static const int PLAYBACK_STOP = 3;
@@ -38,7 +40,7 @@ private:
 	PlaybackState playbackState;
 	long stepIntervalMs = 0;
 	long clickIntervalMs = 0;
-	long iterations = 0;
+	int iteration = 0;
 	long initialPosition = 0;
 	boolean firstStep = true;
 };
