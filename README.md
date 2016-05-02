@@ -27,7 +27,7 @@ Reducing complexity by making all components similar in structure and usage.
 *   Information
 *   Powersupply
 
-	
+This project can also been found on https://hackaday.io/johan .
 
 
 
