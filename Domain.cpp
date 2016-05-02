@@ -9,7 +9,7 @@ Information::~Information() {
 }
 
 void Information::setup() {
-	Debug::getInstance()->info("Information::setup");
+	Debug::getInstance()->debug("Information::setup");
 }
 
 String Information::getCurrentItemName() {

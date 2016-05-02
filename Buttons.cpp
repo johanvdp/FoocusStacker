@@ -12,7 +12,7 @@ Buttons::~Buttons() {
 }
 
 void Buttons::setup() {
-	Debug::getInstance()->info("Buttons::setup");
+	Debug::getInstance()->debug("Buttons::setup");
 	Wire.beginTransmission(I2C_BUTTONS);
 	// configure all buttons as input
 	Wire.write(0xFF);

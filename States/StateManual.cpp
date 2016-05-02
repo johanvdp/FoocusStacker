@@ -2,8 +2,6 @@
 
 #include "StateManual.h"
 
-#include <cstdbool>
-
 #include "../Actuator.h"
 #include "../Buttons.h"
 #include "../Pages/Page.h"

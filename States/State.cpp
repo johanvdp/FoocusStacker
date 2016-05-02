@@ -2,7 +2,6 @@
 #include "State.h"
 #include "../Pages/Page.h"
 #include "../Buttons.h"
-#include "../Statistics.h"
 
 State::State(Clock* clk, StateMachine* s, Buttons* b, Page* p) {
 	clock = clk;

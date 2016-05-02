@@ -11,7 +11,7 @@ Recording::~Recording() {
 }
 
 void Recording::setup() {
-	Debug::getInstance()->info("Recording::setup");
+	Debug::getInstance()->debug("Recording::setup");
 }
 
 void Recording::clearStepPositions() {

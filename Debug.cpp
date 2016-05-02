@@ -1,6 +1,5 @@
 // The author disclaims copyright to this source code.
 #include "Debug.h"
-#include <Arduino.h>
 
 Debug* Debug::instance = NULL;
 
@@ -26,7 +25,7 @@ Debug::~Debug() {
 
 void Debug::setup() {
 	Serial.begin(115200);
-	Debug::getInstance()->info("Debug::setup");
+	Debug::getInstance()->debug("Debug::setup");
 }
 
 void Debug::debug(String debug) {

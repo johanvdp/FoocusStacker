@@ -13,7 +13,7 @@ StateInfo::~StateInfo() {
 
 void StateInfo::setup() {
 
-	Debug::getInstance()->info("StateInfo::setup");
+	Debug::getInstance()->debug("StateInfo::setup");
 
 	Statistics* statistics = stateMachine->getPlaybackStatistics();
 

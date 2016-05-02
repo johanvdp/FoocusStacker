@@ -11,7 +11,7 @@ Clock::~Clock() {
 }
 
 void Clock::setup() {
-	Debug::getInstance()->info("Clock::setup");
+	Debug::getInstance()->debug("Clock::setup");
 	timestamp = millis();
 }
 

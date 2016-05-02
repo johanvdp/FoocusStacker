@@ -1,5 +1,4 @@
 // The author disclaims copyright to this source code.
-
 #include "Actuator.h"
 #include "Debug.h"
 
@@ -21,7 +20,7 @@ Actuator::~Actuator() {
 }
 
 void Actuator::setup() {
-	Debug::getInstance()->info("Actuator::setup");
+	Debug::getInstance()->debug("Actuator::setup");
 	pinMode(LIMIT_UP, INPUT);
 	pinMode(LIMIT_DOWN, INPUT);
 	pinMode(DIRECTION, OUTPUT);

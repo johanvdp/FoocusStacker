@@ -11,7 +11,7 @@ StateHoming::~StateHoming() {
 }
 
 void StateHoming::setup() {
-	Debug::getInstance()->info("StateHoming::setup");
+	Debug::getInstance()->debug("StateHoming::setup");
 	actuator->gotoHome();
 
 	State::setup();

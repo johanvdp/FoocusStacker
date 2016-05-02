@@ -20,7 +20,7 @@ Camera::~Camera() {
 }
 
 void Camera::setup() {
-	Debug::getInstance()->info("Camera::setup");
+	Debug::getInstance()->debug("Camera::setup");
 	pinMode(CAMERA_FOCUS, OUTPUT);
 	pinMode(CAMERA_SHUTTER, OUTPUT);
 

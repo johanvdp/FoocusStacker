@@ -15,7 +15,7 @@ StatePlayback::~StatePlayback() {
 
 void StatePlayback::setup() {
 
-	Debug::getInstance()->info("StatePlayback::setup");
+	Debug::getInstance()->debug("StatePlayback::setup");
 
 	initialPosition = actuator->getPosition();
 

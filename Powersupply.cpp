@@ -44,7 +44,7 @@ Powersupply::~Powersupply() {
 }
 
 void Powersupply::setup() {
-	Debug::getInstance()->info("Powersupply::setup");
+	Debug::getInstance()->debug("Powersupply::setup");
 
 	shuntResolutionVolt = getShuntRangeVolt() / getShuntRangeCount();
 	writeRegister(REGISTER_CALIBRATION, 0);
@@ -82,16 +82,16 @@ void Powersupply::readResult() {
 				"Powersupply::read overflow:" + String(!!overflow) + ", ready:"
 						+ String(!!ready));
 	} else {
-		Debug::getInstance()->info(
+		Debug::getInstance()->debug(
 				"Powersupply::readResult shuntVoltage:"
 						+ String(shuntVoltage * 1000.0, 1) + "mV");
-		Debug::getInstance()->info(
+		Debug::getInstance()->debug(
 				"Powersupply::readResult busVoltage:" + String(busVoltage, 2)
 						+ "V");
-		Debug::getInstance()->info(
+		Debug::getInstance()->debug(
 				"Powersupply::readResult shuntCurrent:"
 						+ String(shuntCurrent * 1000, 0) + "mA");
-		Debug::getInstance()->info(
+		Debug::getInstance()->debug(
 				"Powersupply::readResult busPower:" + String(busPower, 2)
 						+ "W");
 	}

@@ -11,7 +11,7 @@ Statistics::~Statistics() {
 }
 
 void Statistics::setup() {
-	Debug::getInstance()->info("Statistics::setup");
+	Debug::getInstance()->debug("Statistics::setup");
 }
 
 void Statistics::add(float newSample) {
@@ -26,7 +26,7 @@ void Statistics::add(float newSample) {
 }
 
 void Statistics::recalculate() {
-	Debug::getInstance()->info("Statistics::recalculate");
+	Debug::getInstance()->debug("Statistics::recalculate");
 	float sum = 0;
 	minimum = samples[0];
 	maximum = samples[0];
